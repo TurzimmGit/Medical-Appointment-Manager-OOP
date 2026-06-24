@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  postgres_db:
+    image: postgres:15-alpine
+    container_name: clinica_postgresBD
+    environment:
+      POSTGRES_USER: turzimm
+      POSTGRES_PASSWORD: POSTGRES@DB_POO
+      POSTGRES_DB: clinica_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - pg_clinica_pure:/var/lib/postgresql/data
+      - ./docker-dev/init-db:/docker-entrypoint-initdb.d
+
+volumes:
+  pg_clinica_pure:
