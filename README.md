@@ -2,7 +2,9 @@
   <img src="assets/programLogo.png" width="125px" height="125px" alt="Project Logo"/>
 </p>
 
-# 🏥 Medical Appointment Manager (Clinicavita)
+<p align="center">
+  <h1 align="center">Medical Appointment Manager (Clinicavita)</h1>
+</p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/License-MIT-09baba?style=flat-square&logo=opensourceinitiative&logoColor=white"/>
