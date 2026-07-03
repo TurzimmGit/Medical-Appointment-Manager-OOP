@@ -272,6 +272,88 @@ public class OperacoesTabelaPanel extends javax.swing.JPanel {
         popularTabelaComFiltro("");
     }
 
+    private void popularTabelaComFiltro(String termo) {
+        javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) TabelaRegistros.getModel();
+        modelo.setNumRows(0); 
+        
+        try {
+            if (this.cacheConsultas == null) {
+                com.artur.clinica.services.ConsultaPostgresDAO dao = new com.artur.clinica.services.ConsultaPostgresDAO();
+                this.cacheConsultas = dao.listarTodas();
+                System.out.println("💾 [DISCO] Dados carregados do PostgreSQL.");
+            }
+            
+            boolean encontrouAlgum = false;
+            java.time.format.DateTimeFormatter fmtBr = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            
+            for (com.artur.clinica.model.Consulta c : this.cacheConsultas) {
+                
+                String dataBr = c.getData().format(fmtBr);
+                
+                String ticket = c.getCodTicket().toLowerCase();
+                String paciente = c.getPaciente().getNome().toLowerCase();
+                String dataBusca = dataBr.toLowerCase(); 
+                String horario = c.getHorario().toString().toLowerCase();
+                String medico = c.getMedico().getNome().toLowerCase();
+                
+            
+                if (termo.isEmpty() || 
+                    ticket.contains(termo) || 
+                    paciente.contains(termo) || 
+                    dataBusca.contains(termo) || 
+                    horario.contains(termo) || 
+                    medico.contains(termo)) {
+                    
+                    modelo.addRow(new Object[]{
+                        c.getCodTicket(),
+                        c.getPaciente().getNome(),
+                        dataBr, 
+                        c.getHorario(),
+                        c.getMedico().getNome()
+                    });
+                    
+                    if (!termo.isEmpty()) {
+                        encontrouAlgum = true;
+                    }
+                }
+            }
+            
+            if (!termo.isEmpty() && !encontrouAlgum) {
+                NotFoundSearch.setVisible(true);
+            } else {
+                NotFoundSearch.setVisible(false);
+            }
+            
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Erro ao processar dados da tabela: " + e.getMessage(), "Erro", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void didUserUsedSearchTextBox(){
+        BarraBusca.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+        private void verificarExclusao() {
+            if (BarraBusca.getText().trim().isEmpty()) {
+                java.awt.EventQueue.invokeLater(() -> {
+                    atualizarTabela();
+                });
+            }
+        }
+
+        @Override
+        public void insertUpdate(javax.swing.event.DocumentEvent e) {
+        }
+
+        @Override
+        public void removeUpdate(javax.swing.event.DocumentEvent e) {
+            verificarExclusao(); 
+        }
+
+        @Override
+        public void changedUpdate(javax.swing.event.DocumentEvent e) {
+            verificarExclusao();
+        }
+    });
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField BarraBusca;
     private javax.swing.JButton BuscarButton;
