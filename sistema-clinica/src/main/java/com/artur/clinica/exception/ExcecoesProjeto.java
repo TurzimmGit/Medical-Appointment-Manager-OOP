@@ -30,5 +30,17 @@ public class ExcecoesProjeto {
         public ElementoNaoEncontradoException(String mensagem){
             super(mensagem);
         }
-    } 
+    }
+    
+    public static class CpfInvalidoException extends RuntimeException {
+        public CpfInvalidoException(String mensagem) { 
+            super(mensagem); 
+        }
+    }
+
+    public static class CampoObrigatorioException extends RuntimeException {
+        public CampoObrigatorioException(String mensagem) { 
+            super(mensagem); 
+        }
+    }
 }

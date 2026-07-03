@@ -10,6 +10,8 @@ public class MainFrame extends javax.swing.JFrame {
         
         this.setLocationRelativeTo(null);
         
+        
+        
         contentPanel.add(new HomePanel(), "HOME");
         contentPanel.add(new CadastroPacientePanel(), "PACIENTE");
         contentPanel.add(new CadastroMedicoPanel(), "MEDICO");
@@ -17,6 +19,7 @@ public class MainFrame extends javax.swing.JFrame {
         contentPanel.add(new AgendamentoCirurgiaPanel(), "CIRURGIA");
         contentPanel.add(new OperacoesTabelaPanel(), "OPERACOES");
         
+        atualizarEstadoMenuAgendamentos();
         
         
         java.awt.CardLayout cl = (java.awt.CardLayout) contentPanel.getLayout();
@@ -41,7 +44,6 @@ public class MainFrame extends javax.swing.JFrame {
         contentPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new java.awt.BorderLayout());
 
         BarraSuperior.setBackground(new java.awt.Color(51, 255, 255));
         BarraSuperior.setToolTipText("");
@@ -74,24 +76,31 @@ public class MainFrame extends javax.swing.JFrame {
 
         Home.setText("Home");
         Home.setBorder(null);
+        Home.setFocusPainted(false);
         Home.addActionListener(this::HomeActionPerformed);
 
         CadastroPaciente.setText("Cadastro Paciente");
+        CadastroPaciente.setFocusable(false);
         CadastroPaciente.addActionListener(this::CadastroPacienteActionPerformed);
 
         CadastroMedico.setText("Cadastro Médico");
+        CadastroMedico.setFocusable(false);
         CadastroMedico.addActionListener(this::CadastroMedicoActionPerformed);
 
         AgendarConsulta.setText("Agendar Consulta");
+        AgendarConsulta.setFocusable(false);
         AgendarConsulta.addActionListener(this::AgendarConsultaActionPerformed);
 
         AgendarCirurgia.setText("Agendar Cirurgia");
+        AgendarCirurgia.setFocusable(false);
         AgendarCirurgia.addActionListener(this::AgendarCirurgiaActionPerformed);
 
         OperacaoTabela.setText("Operação/Tabela");
+        OperacaoTabela.setFocusable(false);
         OperacaoTabela.addActionListener(this::OperacaoTabelaActionPerformed);
 
         Exit.setText("Sair");
+        Exit.setFocusable(false);
         Exit.addActionListener(this::ExitActionPerformed);
 
         Copyright.setText("©2026 Artur Ferreira Sales");
@@ -186,29 +195,22 @@ public class MainFrame extends javax.swing.JFrame {
        System.exit(0);
     }//GEN-LAST:event_ExitActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    public void atualizarEstadoMenuAgendamentos(){
+        com.artur.clinica.services.ConsultaPostgresDAO dao = new com.artur.clinica.services.ConsultaPostgresDAO();
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new MainFrame().setVisible(true));
+        boolean liberado = dao.possuiPreRequisitosCadastro();
+
+        AgendarConsulta.setEnabled(liberado);
+        AgendarCirurgia.setEnabled(liberado);
+
+        if(!liberado){
+            AgendarConsulta.setToolTipText("Cadastre ao menos 1 paciente e 1 médico para habilitar.");
+            AgendarCirurgia.setToolTipText("Cadastre ao menos 1 paciente e 1 médico para habilitar.");
+        } else {
+            AgendarConsulta.setToolTipText(null);
+            AgendarCirurgia.setToolTipText(null);
+        }
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

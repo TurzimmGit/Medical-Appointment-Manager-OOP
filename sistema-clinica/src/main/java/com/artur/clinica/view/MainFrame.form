@@ -150,6 +150,7 @@
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
             </Property>
+            <Property name="focusPainted" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="HomeActionPerformed"/>
@@ -158,6 +159,7 @@
         <Component class="javax.swing.JButton" name="CadastroPaciente">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cadastro Paciente"/>
+            <Property name="focusable" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CadastroPacienteActionPerformed"/>
@@ -166,6 +168,7 @@
         <Component class="javax.swing.JButton" name="CadastroMedico">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cadastro M&#xe9;dico"/>
+            <Property name="focusable" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CadastroMedicoActionPerformed"/>
@@ -174,6 +177,7 @@
         <Component class="javax.swing.JButton" name="AgendarConsulta">
           <Properties>
             <Property name="text" type="java.lang.String" value="Agendar Consulta"/>
+            <Property name="focusable" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AgendarConsultaActionPerformed"/>
@@ -182,6 +186,7 @@
         <Component class="javax.swing.JButton" name="AgendarCirurgia">
           <Properties>
             <Property name="text" type="java.lang.String" value="Agendar Cirurgia"/>
+            <Property name="focusable" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AgendarCirurgiaActionPerformed"/>
@@ -190,6 +195,7 @@
         <Component class="javax.swing.JButton" name="OperacaoTabela">
           <Properties>
             <Property name="text" type="java.lang.String" value="Opera&#xe7;&#xe3;o/Tabela"/>
+            <Property name="focusable" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="OperacaoTabelaActionPerformed"/>
@@ -198,6 +204,7 @@
         <Component class="javax.swing.JButton" name="Exit">
           <Properties>
             <Property name="text" type="java.lang.String" value="Sair"/>
+            <Property name="focusable" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ExitActionPerformed"/>

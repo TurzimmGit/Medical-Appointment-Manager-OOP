@@ -122,7 +122,15 @@ public class CadastroMedicoPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_EspecialidadesActionPerformed
 
     private void SalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalvarActionPerformed
-        limparCampos();
+        String nome = MedicoNome.getText();
+        String crm = CRM.getText();
+        String esp = Especialidades.getText();
+        
+        boolean cadastro = com.artur.clinica.Controller.ClinicativaController.processarCadastroMedico(this, nome, crm, esp);
+        
+        if(cadastro){
+            limparCampos();
+        }
     }//GEN-LAST:event_SalvarActionPerformed
 
     private void MedicoNomeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_MedicoNomeFocusGained

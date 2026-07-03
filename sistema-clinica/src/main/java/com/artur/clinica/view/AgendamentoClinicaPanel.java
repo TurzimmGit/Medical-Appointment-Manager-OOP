@@ -15,6 +15,7 @@ public class AgendamentoClinicaPanel extends javax.swing.JPanel {
      */
     public AgendamentoClinicaPanel() {
         initComponents();
+        carregarMedicosNoCombo();
     }
 
     /**
@@ -57,7 +58,7 @@ public class AgendamentoClinicaPanel extends javax.swing.JPanel {
 
         TipoConsultaText1.setText("Tipo da Consulta");
 
-        Medico.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Conveniado", "Particular" }));
+        Medico.addActionListener(this::MedicoActionPerformed);
 
         MedicoText.setText("Médico");
 
@@ -101,16 +102,15 @@ public class AgendamentoClinicaPanel extends javax.swing.JPanel {
                             .addComponent(CPFText)))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(TipoConsultaText1)
+                                .addGroup(layout.createSequentialGroup()
                                     .addGap(28, 28, 28)
-                                    .addComponent(MedicoText)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(Medico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(TipoConsultaText1)
-                                    .addGap(17, 17, 17)
-                                    .addComponent(TipoConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(MedicoText)))
+                            .addGap(17, 17, 17)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(Medico, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(TipoConsulta, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(Salvar))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -187,9 +187,53 @@ public class AgendamentoClinicaPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_PacienteNomeActionPerformed
 
     private void SalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalvarActionPerformed
-        limparCampos();
+        String cpf = CPFPaciente.getText(); 
+        Object medicoSelecionado = Medico.getSelectedItem();
+        String data = DataConsulta.getText(); 
+        String horario = HorarioConsulta.getText(); 
+        String tipoConsulta = TipoConsulta.getSelectedItem().toString();
+
+    
+    boolean agendadoComSucesso = com.artur.clinica.Controller.ClinicativaController.processarCadastroConsulta(
+        this, cpf, medicoSelecionado, data, horario, tipoConsulta
+    );
+    
+    if (agendadoComSucesso) {
+        limparCampos(); 
+    }
     }//GEN-LAST:event_SalvarActionPerformed
 
+    private void MedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MedicoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MedicoActionPerformed
+
+    public void carregarMedicosNoCombo(){
+        Medico.removeAllItems();
+
+        Medico.setRenderer(new javax.swing.DefaultListCellRenderer() {
+        @Override
+        public java.awt.Component getListCellRendererComponent(
+                javax.swing.JList<?> list, Object value, int index, 
+                boolean isSelected, boolean cellHasFocus) {
+            
+            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+        
+            if (value instanceof com.artur.clinica.model.Medico) {
+                com.artur.clinica.model.Medico med = (com.artur.clinica.model.Medico) value;
+                setText(med.getNome() + " (CRM: " + med.getCrm() + ")");
+            }
+            
+            return this;
+            }
+        });
+
+        com.artur.clinica.services.ConsultaPostgresDAO dao = new com.artur.clinica.services.ConsultaPostgresDAO();
+        java.util.List<com.artur.clinica.model.Medico> lista = dao.listarMedicos();
+
+        for(com.artur.clinica.model.Medico med : lista){
+            Medico.addItem(med);
+        }
+    }
     private void limparCampos(){
         PacienteNome.setText("");
         CPFPaciente.setValue(null);
@@ -211,7 +255,7 @@ public class AgendamentoClinicaPanel extends javax.swing.JPanel {
     private javax.swing.JLabel DataConsultaText;
     private javax.swing.JFormattedTextField HorarioConsulta;
     private javax.swing.JLabel HorarioConsultaText1;
-    private javax.swing.JComboBox<String> Medico;
+    private javax.swing.JComboBox<com.artur.clinica.model.Medico> Medico;
     private javax.swing.JLabel MedicoText;
     private javax.swing.JTextField PacienteNome;
     private javax.swing.JButton Salvar;

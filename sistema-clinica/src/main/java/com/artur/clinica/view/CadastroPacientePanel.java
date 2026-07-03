@@ -4,6 +4,8 @@
  */
 package com.artur.clinica.view;
 
+
+
 /**
  *
  * @author artur
@@ -177,7 +179,20 @@ public class CadastroPacientePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_AlergiasFocusLost
 
     private void SalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalvarActionPerformed
-        limparCampos();
+        
+        String nome = PacienteNome.getText();
+        String cpf = CPFPaciente.getText();
+        String dataNasc = DataNascimento.getText();
+        String tipoSangue = TipoSanguineo.getSelectedItem().toString();
+        String alergias = Alergias.getText();
+        
+        boolean cadastro = com.artur.clinica.Controller.ClinicativaController.processarCadastroPaciente(this, nome, cpf, dataNasc, tipoSangue, alergias);
+        
+        if(cadastro){
+            limparCampos();
+        }
+
+        
     }//GEN-LAST:event_SalvarActionPerformed
     
     private void limparCampos(){

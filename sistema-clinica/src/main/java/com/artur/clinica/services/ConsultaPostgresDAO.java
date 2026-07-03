@@ -365,4 +365,87 @@ public class ConsultaPostgresDAO {
             }
             return todas;
     }
+
+    public List<Medico> listarMedicos(){
+        List<Medico> medicos = new ArrayList<>();
+
+        String sql = """
+                    SELECT m.CRM, m.Especialidade,p.Nome
+                    FROM medico m
+                    INNER JOIN pessoa p ON m.IDPessoa = p.IDPessoa
+                    ORDER BY p.Nome
+                    """;
+
+        try(Connection conn = ConexaoBanco.conectar();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);)
+            {
+                while(rs.next()){
+                    medicos.add(new Medico(rs.getString("Nome"), rs.getString("CRM"), rs.getString("Especialidade")));
+                }
+        }catch(SQLException e){
+            throw new ErroBancoDadosException("Erro ao buscar médicos para o combo: " + e.getMessage());
+        }
+        return medicos;
+    }
+
+    public Paciente buscarPorCpf(String cpf){
+        String sql = """
+                SELECT p.CPF, p.TipoSanguineo,p.data_nascimento,pes.Nome,
+                (SELECT string_agg(Alergias, ', ') FROM alergias WHERE IDPessoa = p.IDPessoa) AS Alergias
+                FROM paciente p
+                INNER JOIN pessoa pes ON p.IDPessoa = pes.IDPessoa
+                WHERE p.CPF = ?
+                """;
+        
+        try(Connection conn = ConexaoBanco.conectar();
+            PreparedStatement stmt = conn.prepareStatement(sql)){
+            
+            stmt.setString(1, cpf);
+
+            try(ResultSet rs = stmt.executeQuery()){
+                if(rs.next()){
+
+                    java.time.format.DateTimeFormatter fmtBr = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                    String dataNascBr = rs.getDate("data_nascimento").toLocalDate().format(fmtBr);
+                    return new Paciente(rs.getString("Nome"), rs.getString("CPF"), rs.getString("TipoSanguineo"), dataNascBr, rs.getString("Alergias"));
+                }
+            }
+            }catch(SQLException e){
+                throw new ErroBancoDadosException("Erro ao buscar paciente: " + e.getMessage());
+            }
+        return null;
+    }
+
+    public boolean possuiPreRequisitosCadastro() {
+    String sqlMedico = "SELECT COUNT(*) FROM medico";
+    String sqlPaciente = "SELECT COUNT(*) FROM paciente";
+    
+    int qtdMedicos = 0;
+    int qtdPacientes = 0;
+    
+    try (Connection conn = ConexaoBanco.conectar()) {
+        
+        try (PreparedStatement stmtM = conn.prepareStatement(sqlMedico);
+             ResultSet rsM = stmtM.executeQuery()) {
+            if (rsM.next()) {
+                qtdMedicos = rsM.getInt(1);
+            }
+        }
+
+        try (PreparedStatement stmtP = conn.prepareStatement(sqlPaciente);
+             ResultSet rsP = stmtP.executeQuery()) {
+            if (rsP.next()) {
+                qtdPacientes = rsP.getInt(1);
+            }
+        }
+        
+        return qtdMedicos >= 1 && qtdPacientes >= 1;
+        
+    } catch (SQLException e) {
+        System.err.println("ERRO VERIFICAÇÃO BANCO: " + e.getMessage());
+        return false;
+    }
+}
+
 }

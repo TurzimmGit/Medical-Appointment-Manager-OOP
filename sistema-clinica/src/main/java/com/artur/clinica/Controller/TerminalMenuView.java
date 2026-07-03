@@ -1,5 +1,6 @@
-package com.artur.clinica.app;
+package com.artur.clinica.Controller;
 
+import com.artur.clinica.app.ConsoleUtils;
 import java.util.List;
 
 import com.artur.clinica.exception.ExcecoesProjeto.ConflitoHorarioException;
