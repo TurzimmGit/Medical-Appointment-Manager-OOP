@@ -73,6 +73,7 @@ public class AgendamentoCirurgiaPanel extends javax.swing.JPanel {
         DataCirurgia.addActionListener(this::DataCirurgiaActionPerformed);
 
         Salvar.setText("Salvar");
+        Salvar.setFocusable(false);
         Salvar.addActionListener(this::SalvarActionPerformed);
 
         DataCirurgiaText.setText("Data da Cirurgia ");

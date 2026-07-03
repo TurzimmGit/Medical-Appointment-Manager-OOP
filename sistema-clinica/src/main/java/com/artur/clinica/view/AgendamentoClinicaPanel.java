@@ -85,6 +85,7 @@ public class AgendamentoClinicaPanel extends javax.swing.JPanel {
         PacienteNome.addActionListener(this::PacienteNomeActionPerformed);
 
         Salvar.setText("Salvar");
+        Salvar.setFocusable(false);
         Salvar.addActionListener(this::SalvarActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

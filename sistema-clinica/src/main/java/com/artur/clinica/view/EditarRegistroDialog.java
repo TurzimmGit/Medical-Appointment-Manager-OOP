@@ -2,6 +2,8 @@ package com.artur.clinica.view;
 
 import java.awt.CardLayout;
 
+import com.artur.clinica.Controller.ClinicativaController;
+
 public class EditarRegistroDialog extends javax.swing.JDialog {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(EditarRegistroDialog.class.getName());
@@ -12,6 +14,7 @@ public class EditarRegistroDialog extends javax.swing.JDialog {
         
         
         initComponents();
+        carregarMedicosNoCombo();
         
         
         Ticket.setText(ticket);
@@ -74,6 +77,7 @@ public class EditarRegistroDialog extends javax.swing.JDialog {
         EditarDialogPanel.setLayout(new java.awt.CardLayout());
 
         Salvar1.setText("Salvar");
+        Salvar1.setFocusable(false);
         Salvar1.addActionListener(this::Salvar1ActionPerformed);
 
         DataCirurgiaText.setText("Data da Cirurgia ");
@@ -90,7 +94,7 @@ public class EditarRegistroDialog extends javax.swing.JDialog {
 
         MedicoText1.setText("Médico");
 
-        Medico1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Conveniado", "Particular" }));
+        Medico1.addActionListener(this::Medico1ActionPerformed);
 
         TipoCirurgia.setText("Digite o tipo da Cirurgia...");
         TipoCirurgia.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -127,7 +131,7 @@ public class EditarRegistroDialog extends javax.swing.JDialog {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(Medico1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 0, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(Salvar1))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, CARD_CIRURGIALayout.createSequentialGroup()
                             .addGroup(CARD_CIRURGIALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,7 +142,7 @@ public class EditarRegistroDialog extends javax.swing.JDialog {
                                 .addComponent(HorarioCirurgiaText1)
                                 .addComponent(HorarioCirurgia, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(TipoCirurgia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         CARD_CIRURGIALayout.setVerticalGroup(
             CARD_CIRURGIALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,10 +189,11 @@ public class EditarRegistroDialog extends javax.swing.JDialog {
         HorarioConsultaText1.setText("Horário da Consulta");
 
         TipoConsulta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Conveniado", "Particular" }));
+        TipoConsulta.addActionListener(this::TipoConsultaActionPerformed);
 
         TipoConsultaText1.setText("Tipo da Consulta");
 
-        Medico.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Conveniado", "Particular" }));
+        Medico.addActionListener(this::MedicoActionPerformed);
 
         MedicoText.setText("Médico");
 
@@ -295,8 +300,17 @@ public class EditarRegistroDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_DataConsultaActionPerformed
 
     private void SalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalvarActionPerformed
-        this.dispose();
-        limparCampos();
+        String ticketStr = Ticket.getText();
+        String dataStr = DataConsulta.getText();
+        String horarioStr = HorarioConsulta.getText();
+        Object medicoObj = Medico.getSelectedItem();
+        String tipoConsulta = TipoConsulta.getSelectedItem().toString();
+
+        boolean sucesso = ClinicativaController.processarAlteracaoConsulta(this, ticketStr, dataStr, horarioStr, medicoObj, tipoConsulta);
+
+        if(sucesso){ 
+            this.dispose();
+        }
     }//GEN-LAST:event_SalvarActionPerformed
 
     private void HorarioConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HorarioConsultaActionPerformed
@@ -304,8 +318,18 @@ public class EditarRegistroDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_HorarioConsultaActionPerformed
 
     private void Salvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Salvar1ActionPerformed
-        limparCampos();
-        this.dispose();
+        String ticketStr = Ticket.getText();
+        String dataStr = DataConsulta.getText();
+        String horarioStr = HorarioConsulta.getText();
+        Object medicoObj = Medico.getSelectedItem();
+        String tipoAnestesia = TipoAnestesia.getSelectedItem().toString();
+        String tipoCir = TipoCirurgia.getText();
+
+        boolean sucesso = ClinicativaController.processarAlteracaoCirurgia(this, ticketStr, dataStr, horarioStr, medicoObj, tipoAnestesia, tipoCir);
+
+        if(sucesso){ 
+            this.dispose();
+        }
     }//GEN-LAST:event_Salvar1ActionPerformed
 
     private void HorarioCirurgiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HorarioCirurgiaActionPerformed
@@ -333,6 +357,18 @@ public class EditarRegistroDialog extends javax.swing.JDialog {
     private void DataCirurgiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DataCirurgiaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_DataCirurgiaActionPerformed
+
+    private void TipoConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TipoConsultaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TipoConsultaActionPerformed
+
+    private void MedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MedicoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MedicoActionPerformed
+
+    private void Medico1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Medico1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Medico1ActionPerformed
     
     private void limparCampos(){
         HorarioConsulta.setValue(null);
@@ -341,7 +377,33 @@ public class EditarRegistroDialog extends javax.swing.JDialog {
         TipoConsulta.setSelectedIndex(0);
     }
 
-      
+    public void carregarMedicosNoCombo(){
+        Medico.removeAllItems();
+
+        Medico.setRenderer(new javax.swing.DefaultListCellRenderer() {
+        @Override
+        public java.awt.Component getListCellRendererComponent(
+                javax.swing.JList<?> list, Object value, int index, 
+                boolean isSelected, boolean cellHasFocus) {
+            
+            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+        
+            if (value instanceof com.artur.clinica.model.Medico) {
+                com.artur.clinica.model.Medico med = (com.artur.clinica.model.Medico) value;
+                setText(med.getNome() + " (CRM: " + med.getCrm() + ")");
+            }
+            
+            return this;
+            }
+        });
+
+        com.artur.clinica.services.ConsultaPostgresDAO dao = new com.artur.clinica.services.ConsultaPostgresDAO();
+        java.util.List<com.artur.clinica.model.Medico> lista = dao.listarMedicos();
+
+        for(com.artur.clinica.model.Medico med : lista){
+            Medico.addItem(med);
+        }
+    } 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel CARD_CIRURGIA;
@@ -355,8 +417,8 @@ public class EditarRegistroDialog extends javax.swing.JDialog {
     private javax.swing.JLabel HorarioCirurgiaText1;
     private javax.swing.JFormattedTextField HorarioConsulta;
     private javax.swing.JLabel HorarioConsultaText1;
-    private javax.swing.JComboBox<String> Medico;
-    private javax.swing.JComboBox<String> Medico1;
+    private javax.swing.JComboBox<com.artur.clinica.model.Medico> Medico;
+    private javax.swing.JComboBox<com.artur.clinica.model.Medico> Medico1;
     private javax.swing.JLabel MedicoText;
     private javax.swing.JLabel MedicoText1;
     private javax.swing.JTextField NomePaciente;

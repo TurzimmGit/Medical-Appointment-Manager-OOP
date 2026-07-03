@@ -45,7 +45,7 @@ public class ConsultaClinica extends Consulta{
                 """.formatted(this.tipoConsulta);
             }
 
-
+    @Override
     public String getCodTicket() {
         return codTicket;
     }

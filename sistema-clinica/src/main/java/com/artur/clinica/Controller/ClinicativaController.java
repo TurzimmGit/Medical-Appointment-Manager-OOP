@@ -1,6 +1,8 @@
 package com.artur.clinica.Controller;
 
 import java.awt.Component;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import javax.swing.JOptionPane;
 
@@ -198,7 +200,38 @@ public class ClinicativaController {
         }
     }
 
+    public static boolean processarAlteracaoConsulta(Component telaPai, String ticket, String dataStr, String horaStr, Object medObj, String tipoConsulta) {
+        try {
+            if (medObj == null || medObj instanceof String) throw new DadosInvalidosException("Selecione um médico válido.");
+            
+            LocalDate data = com.artur.clinica.model.Consulta.validarEConverterData(dataStr);
+            LocalTime hora = com.artur.clinica.model.Consulta.validarEconverterHora(horaStr);
+            String crm = ((com.artur.clinica.model.Medico) medObj).getCrm();
+            
+            dao.atualizarConsultaClinicaPorTicket(ticket, data, hora, crm, tipoConsulta);
+            JOptionPane.showMessageDialog(telaPai, "Consulta alterada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            return true;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(telaPai, e.getMessage(), "Erro na Alteração", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+    }
+
+    public static boolean processarAlteracaoCirurgia(Component telaPai, String ticket, String dataStr, String horaStr, Object medObj, String anestesia, String tipoCirurgia) {
+        try {
+            if (medObj == null || medObj instanceof String) throw new DadosInvalidosException("Selecione um médico válido.");
+            if (tipoCirurgia.trim().isEmpty() || tipoCirurgia.equals("Digite o tipo da Cirurgia...")) throw new DadosInvalidosException("Informe o tipo da cirurgia.");
+            
+            LocalDate data = com.artur.clinica.model.Consulta.validarEConverterData(dataStr);
+            LocalTime hora = com.artur.clinica.model.Consulta.validarEconverterHora(horaStr);
+            String crm = ((com.artur.clinica.model.Medico) medObj).getCrm();
+            
+            dao.atualizarCirurgiaPorTicket(ticket, data, hora, crm, anestesia, tipoCirurgia.trim());
+            JOptionPane.showMessageDialog(telaPai, "Cirurgia alterada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            return true;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(telaPai, e.getMessage(), "Erro na Alteração", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+    }
 }
-    
-    
-    

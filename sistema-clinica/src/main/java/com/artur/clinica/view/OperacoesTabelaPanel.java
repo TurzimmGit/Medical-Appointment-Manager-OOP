@@ -1,13 +1,16 @@
 package com.artur.clinica.view;
 
 public class OperacoesTabelaPanel extends javax.swing.JPanel {
-    
+    private java.util.List<com.artur.clinica.model.Consulta> cacheConsultas = null;
     private String ticketSelecionado = null;
     
     public OperacoesTabelaPanel() {
         initComponents();
         NotFoundSearch.setVisible(false);
         TabelaRegistros.getTableHeader().setReorderingAllowed(false);
+
+        atualizarTabela();
+        didUserUsedSearchTextBox();
         
         Deletar.setEnabled(false); 
         Editar.setEnabled(false);  
@@ -50,9 +53,11 @@ public class OperacoesTabelaPanel extends javax.swing.JPanel {
         ConfirmarText.setText("Confirmar a Deleção da Consulta");
 
         Confirmar.setText("Confirmar");
+        Confirmar.setFocusable(false);
         Confirmar.addActionListener(this::ConfirmarActionPerformed);
 
         Cancelar.setText("Cancelar");
+        Cancelar.setFocusable(false);
         Cancelar.addActionListener(this::CancelarActionPerformed);
 
         javax.swing.GroupLayout ConfirmarDeleteLayout = new javax.swing.GroupLayout(ConfirmarDelete.getContentPane());
@@ -84,6 +89,11 @@ public class OperacoesTabelaPanel extends javax.swing.JPanel {
         );
 
         setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 20, 1, 1));
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
 
         TabelaRegistros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -92,9 +102,16 @@ public class OperacoesTabelaPanel extends javax.swing.JPanel {
             new String [] {
                 "Ticket", "Paciente", "Data", "Horário", "Médico"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         TabelaRegistros.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        TabelaRegistros.setEnabled(false);
         TabelaScroll.setViewportView(TabelaRegistros);
         TabelaRegistros.getAccessibleContext().setAccessibleDescription("");
 
@@ -113,6 +130,7 @@ public class OperacoesTabelaPanel extends javax.swing.JPanel {
 
         BuscarButton.setText("🔍");
         BuscarButton.setFocusable(false);
+        BuscarButton.addActionListener(this::BuscarButtonActionPerformed);
 
         NotFoundSearch.setForeground(new java.awt.Color(255, 84, 84));
         NotFoundSearch.setText("Não foi possível Encontrar nenhum registro com os termos pesquisados!");
@@ -181,6 +199,8 @@ public class OperacoesTabelaPanel extends javax.swing.JPanel {
             dialog.setLocationRelativeTo(null);
             dialog.setVisible(true);
 
+            atualizarTabela();
+
             }
     }//GEN-LAST:event_EditarActionPerformed
 
@@ -215,14 +235,42 @@ public class OperacoesTabelaPanel extends javax.swing.JPanel {
     private void ConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmarActionPerformed
      
         if (this.ticketSelecionado != null) {
-       
-        System.out.println("Deletando o ticket: " + this.ticketSelecionado); // Teste
+            try {
+                com.artur.clinica.services.ConsultaPostgresDAO dao = new com.artur.clinica.services.ConsultaPostgresDAO();
+                dao.deletarPorTicket(this.ticketSelecionado);
+
+                javax.swing.JOptionPane.showMessageDialog(this, "Agendamento " + this.ticketSelecionado + " removido com sucesso!", "Sucesso", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+
+                atualizarTabela();
+                
+            } catch (Exception e) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Erro ao deletar do banco:\n" + e.getMessage(), "Erro", javax.swing.JOptionPane.ERROR_MESSAGE);
+            }
     }
     
     ConfirmarDelete.dispose(); 
     this.ticketSelecionado = null;
     }//GEN-LAST:event_ConfirmarActionPerformed
 
+    private void BuscarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarButtonActionPerformed
+        String termoBusca = BarraBusca.getText().toLowerCase();
+        popularTabelaComFiltro(termoBusca);
+    }//GEN-LAST:event_BuscarButtonActionPerformed
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        this.requestFocusInWindow();
+    }//GEN-LAST:event_formMouseClicked
+
+    public void atualizarTabela(){
+        this.cacheConsultas = null; 
+
+        if (BarraBusca != null) {
+            BarraBusca.setText(""); 
+        }
+    
+    
+        popularTabelaComFiltro("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField BarraBusca;

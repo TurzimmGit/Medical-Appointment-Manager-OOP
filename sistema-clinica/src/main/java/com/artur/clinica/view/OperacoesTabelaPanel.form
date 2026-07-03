@@ -64,6 +64,7 @@
         <Component class="javax.swing.JButton" name="Confirmar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Confirmar"/>
+            <Property name="focusable" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ConfirmarActionPerformed"/>
@@ -72,6 +73,7 @@
         <Component class="javax.swing.JButton" name="Cancelar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cancelar"/>
+            <Property name="focusable" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CancelarActionPerformed"/>
@@ -87,6 +89,9 @@
       </Border>
     </Property>
   </Properties>
+  <Events>
+    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="formMouseClicked"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -167,11 +172,11 @@
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="5" rowCount="0">
-                <Column editable="true" title="Ticket" type="java.lang.Object"/>
-                <Column editable="true" title="Paciente" type="java.lang.Object"/>
-                <Column editable="true" title="Data" type="java.lang.Object"/>
-                <Column editable="true" title="Hor&#xe1;rio" type="java.lang.Object"/>
-                <Column editable="true" title="M&#xe9;dico" type="java.lang.Object"/>
+                <Column editable="false" title="Ticket" type="java.lang.Object"/>
+                <Column editable="false" title="Paciente" type="java.lang.Object"/>
+                <Column editable="false" title="Data" type="java.lang.Object"/>
+                <Column editable="false" title="Hor&#xe1;rio" type="java.lang.Object"/>
+                <Column editable="false" title="M&#xe9;dico" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -206,7 +211,6 @@
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Default Cursor"/>
             </Property>
-            <Property name="enabled" type="boolean" value="false"/>
             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
@@ -253,6 +257,9 @@
         <Property name="text" type="java.lang.String" value="\ud83d\udd0d" containsInvalidXMLChars="true"/>
         <Property name="focusable" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BuscarButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="NotFoundSearch">
       <Properties>

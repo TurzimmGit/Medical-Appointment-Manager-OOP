@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.artur.clinica.exception.ExcecoesProjeto;
+import com.artur.clinica.exception.ExcecoesProjeto.ConflitoHorarioException;
 import com.artur.clinica.exception.ExcecoesProjeto.ElementoNaoEncontradoException;
 import com.artur.clinica.exception.ExcecoesProjeto.ErroBancoDadosException;
 import com.artur.clinica.model.Cirurgia;
@@ -442,10 +443,123 @@ public class ConsultaPostgresDAO {
         
         return qtdMedicos >= 1 && qtdPacientes >= 1;
         
-    } catch (SQLException e) {
-        System.err.println("ERRO VERIFICAÇÃO BANCO: " + e.getMessage());
-        return false;
+        } catch (SQLException e) {
+            System.err.println("ERRO VERIFICAÇÃO BANCO: " + e.getMessage());
+            return false;
+        }
     }
-}
 
+    public void deletarPorTicket(String ticket){
+        String sqlBuscaID = """
+                SELECT IDConsulta FROM consulta_clinica WHERE codTicket = ?
+                UNION
+                SELECT IDConsulta FROM cirurgia WHERE codTicket = ?
+                """;
+        
+        try(Connection conn = ConexaoBanco.conectar();
+            PreparedStatement stmtBusca = conn.prepareStatement(sqlBuscaID)){
+                stmtBusca.setString(1,ticket);
+                stmtBusca.setString(2,ticket);
+
+                int idEncontrado = -1;
+
+                try(ResultSet rs = stmtBusca.executeQuery()){
+                    if(rs.next()){
+                        idEncontrado = rs.getInt("IDConsulta");
+                    }
+                }
+
+                if(idEncontrado != -1){
+                    remover(idEncontrado);
+                }else{
+                    throw new com.artur.clinica.exception.ExcecoesProjeto.ElementoNaoEncontradoException("Ticket não encontrado.");
+                }
+        }catch(SQLException e){
+            throw new com.artur.clinica.exception.ExcecoesProjeto.ErroBancoDadosException("Erro ao deletar por ticket: " + e.getMessage());
+        }
+    }
+
+    public void atualizarConsultaClinicaPorTicket(String ticket, LocalDate novaData,LocalTime novoHorario, String novoCrm, String novoTipoConsulta){
+        String sqlID = "SELECT IDConsulta FROM consulta_clinica WHERE codticket =?";
+        String sqlPai = "UPDATE consulta SET Data= ?, Horario = ?, CRM = ? WHERE IDConsulta = ?";
+        String sqlFilha = "UPDATE consulta_clinica SET TipoConsulta = ? WHERE IDConsulta = ?";
+
+        try (Connection conn = ConexaoBanco.conectar()) {
+        conn.setAutoCommit(false);
+        int id = -1;
+
+            try (PreparedStatement stmtId = conn.prepareStatement(sqlID)) {
+                stmtId.setString(1, ticket);
+                try (ResultSet rs = stmtId.executeQuery()) {
+                    if (rs.next()) id = rs.getInt(1);
+                }
+            }
+        
+            if (id == -1) throw new ElementoNaoEncontradoException("Ticket não localizado.");
+
+            if (temConflito(novaData, novoHorario, id, novoCrm)) {
+                throw new ConflitoHorarioException("O médico já possui uma consulta nesse intervalo!");
+            }
+
+            try (PreparedStatement stmtPai = conn.prepareStatement(sqlPai)) {
+                stmtPai.setDate(1, java.sql.Date.valueOf(novaData));
+                stmtPai.setTime(2, java.sql.Time.valueOf(novoHorario));
+                stmtPai.setString(3, novoCrm);
+                stmtPai.setInt(4, id);
+                stmtPai.executeUpdate();
+            }
+
+            try (PreparedStatement stmtFilha = conn.prepareStatement(sqlFilha)) {
+                stmtFilha.setString(1, novoTipoConsulta);
+                stmtFilha.setInt(2, id);
+                stmtFilha.executeUpdate();
+            } 
+            conn.commit();
+        } catch(SQLException e){
+            throw new ErroBancoDadosException("Erro ao atualizar consulta clínica: " + e.getMessage());
+        }
+    }
+
+    public void atualizarCirurgiaPorTicket(String ticket, LocalDate novaData, LocalTime novoHorario, String novoCrm, String novaAnestesia, String novaCirurgia) {
+        String sqlId = "SELECT IDConsulta FROM cirurgia WHERE CodTicket = ?";
+        String sqlPai = "UPDATE consulta SET Data = ?, Horario = ?, CRM = ? WHERE IDConsulta = ?";
+        String sqlFilha = "UPDATE cirurgia SET TipoAnestesia = ?, TipoCirurgia = ? WHERE IDConsulta = ?";
+
+        try (Connection conn = ConexaoBanco.conectar()) {
+            conn.setAutoCommit(false);
+            int id = -1;
+
+            try (PreparedStatement stmtId = conn.prepareStatement(sqlId)) {
+                stmtId.setString(1, ticket);
+                try (ResultSet rs = stmtId.executeQuery()) {
+                    if (rs.next()) id = rs.getInt(1);
+                }
+            }
+
+            if (id == -1) throw new ElementoNaoEncontradoException("Ticket não localizado.");
+
+            if (temConflito(novaData, novoHorario, id, novoCrm)) {
+                throw new ConflitoHorarioException("O médico já possui um compromisso nesse intervalo!");
+            }
+
+            try (PreparedStatement stmtPai = conn.prepareStatement(sqlPai)) {
+                stmtPai.setDate(1, java.sql.Date.valueOf(novaData));
+                stmtPai.setTime(2, java.sql.Time.valueOf(novoHorario));
+                stmtPai.setString(3, novoCrm);
+                stmtPai.setInt(4, id);
+                stmtPai.executeUpdate();
+            }
+
+            try (PreparedStatement stmtFilha = conn.prepareStatement(sqlFilha)) {
+                stmtFilha.setString(1, novaAnestesia);
+                stmtFilha.setString(2, novaCirurgia);
+                stmtFilha.setInt(3, id);
+                stmtFilha.executeUpdate();
+            }
+
+            conn.commit();
+        } catch (SQLException e) {
+            throw new ErroBancoDadosException("Erro ao atualizar cirurgia: " + e.getMessage());
+        }
+    }
 }

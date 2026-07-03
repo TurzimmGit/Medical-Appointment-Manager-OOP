@@ -124,5 +124,5 @@ public abstract class Consulta{
     }
 
     public abstract int getHorarioEmMin();
-
+    public abstract String getCodTicket();
 }

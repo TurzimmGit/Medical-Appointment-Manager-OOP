@@ -1,9 +1,12 @@
 
 package com.artur.clinica.view;
 
+
+
 public class MainFrame extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MainFrame.class.getName());
+    private com.artur.clinica.view.OperacoesTabelaPanel painelOperacoes;
 
     public MainFrame() {
         initComponents();
@@ -177,6 +180,12 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_AgendarCirurgiaActionPerformed
 
     private void OperacaoTabelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OperacaoTabelaActionPerformed
+        if (this.painelOperacoes == null) {
+            this.painelOperacoes = new com.artur.clinica.view.OperacoesTabelaPanel();
+            contentPanel.add(this.painelOperacoes, "OPERACOES");
+        }
+
+        this.painelOperacoes.atualizarTabela();
         java.awt.CardLayout cl = (java.awt.CardLayout) contentPanel.getLayout();
         cl.show(contentPanel, "OPERACOES");
     }//GEN-LAST:event_OperacaoTabelaActionPerformed

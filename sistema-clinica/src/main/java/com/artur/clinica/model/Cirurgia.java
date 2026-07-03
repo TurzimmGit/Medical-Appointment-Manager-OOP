@@ -56,7 +56,7 @@ public class Cirurgia extends Consulta{
                 ------------------------------------------
                 """.formatted(tipoAnestesia, tipoCirurgia);
             }
-
+    @Override
     public String getCodTicket() {
         return codTicket;
     }
