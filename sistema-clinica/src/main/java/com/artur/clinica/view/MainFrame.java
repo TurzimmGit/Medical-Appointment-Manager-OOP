@@ -1,4 +1,3 @@
-
 package com.artur.clinica.view;
 
 
@@ -13,7 +12,21 @@ public class MainFrame extends javax.swing.JFrame {
         
         this.setLocationRelativeTo(null);
         
+        javax.swing.JButton[] botoesMenu = {Home, CadastroPaciente, CadastroMedico, AgendarConsulta, AgendarCirurgia, OperacaoTabela, Exit};
+        for (javax.swing.JButton btn : botoesMenu) {
+            btn.setContentAreaFilled(false);
+            btn.setOpaque(true);           
+            btn.setBorderPainted(false);     }
         
+        try {
+            java.net.URL url = getClass().getResource("/assets/programIcon.png");
+            if (url != null) {
+                java.awt.Image icone = new javax.swing.ImageIcon(url).getImage();
+                this.setIconImage(icone); 
+            }
+        } catch (Exception e) {
+             System.err.println("Erro ao carregar o ícone: " + e.getMessage());
+        }
         
         contentPanel.add(new HomePanel(), "HOME");
         contentPanel.add(new CadastroPacientePanel(), "PACIENTE");
@@ -24,7 +37,13 @@ public class MainFrame extends javax.swing.JFrame {
         
         atualizarEstadoMenuAgendamentos();
         
-        
+        javax.swing.Timer timer = new javax.swing.Timer(1000, e -> {
+            java.time.LocalDateTime agora = java.time.LocalDateTime.now();
+            java.time.format.DateTimeFormatter formatador = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy    HH:mm");
+            Data.setText(agora.format(formatador));
+        });
+
+        timer.start();
         java.awt.CardLayout cl = (java.awt.CardLayout) contentPanel.getLayout();
         cl.show(contentPanel, "HOME");
     }
@@ -34,7 +53,8 @@ public class MainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         BarraSuperior = new javax.swing.JPanel();
-        BarraSuperiorText = new javax.swing.JLabel();
+        LogoBarraSuperior = new javax.swing.JLabel();
+        Data = new javax.swing.JLabel();
         BarraLateral = new javax.swing.JPanel();
         Home = new javax.swing.JButton();
         CadastroPaciente = new javax.swing.JButton();
@@ -47,66 +67,156 @@ public class MainFrame extends javax.swing.JFrame {
         contentPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Medical Appointment Manager - Clinicativa v1.0");
 
-        BarraSuperior.setBackground(new java.awt.Color(51, 255, 255));
+        BarraSuperior.setBackground(new java.awt.Color(2, 132, 199));
         BarraSuperior.setToolTipText("");
         BarraSuperior.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         BarraSuperior.setName(""); // NOI18N
         BarraSuperior.setPreferredSize(new java.awt.Dimension(1000, 70));
 
-        BarraSuperiorText.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        BarraSuperiorText.setText("Clinicativa");
-        BarraSuperiorText.setMaximumSize(new java.awt.Dimension(100, 50));
+        LogoBarraSuperior.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        LogoBarraSuperior.setForeground(new java.awt.Color(15, 23, 42));
+        LogoBarraSuperior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ClinicaBarraSuperior.png"))); // NOI18N
+        LogoBarraSuperior.setMaximumSize(new java.awt.Dimension(100, 50));
+
+        Data.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        Data.setForeground(new java.awt.Color(15, 23, 42));
 
         javax.swing.GroupLayout BarraSuperiorLayout = new javax.swing.GroupLayout(BarraSuperior);
         BarraSuperior.setLayout(BarraSuperiorLayout);
         BarraSuperiorLayout.setHorizontalGroup(
             BarraSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BarraSuperiorLayout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(BarraSuperiorText, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(835, Short.MAX_VALUE))
+                .addGap(17, 17, 17)
+                .addComponent(LogoBarraSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 539, Short.MAX_VALUE)
+                .addComponent(Data, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         BarraSuperiorLayout.setVerticalGroup(
             BarraSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(BarraSuperiorText, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BarraSuperiorLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Data, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addComponent(LogoBarraSuperior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         getContentPane().add(BarraSuperior, java.awt.BorderLayout.PAGE_START);
 
-        BarraLateral.setBackground(new java.awt.Color(51, 51, 255));
+        BarraLateral.setBackground(new java.awt.Color(30, 41, 59));
         BarraLateral.setPreferredSize(new java.awt.Dimension(180, 600));
 
+        Home.setBackground(new java.awt.Color(14, 165, 233));
+        Home.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        Home.setForeground(new java.awt.Color(15, 23, 42));
         Home.setText("Home");
         Home.setBorder(null);
         Home.setFocusPainted(false);
+        Home.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                HomeMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                HomeMouseExited(evt);
+            }
+        });
         Home.addActionListener(this::HomeActionPerformed);
 
+        CadastroPaciente.setBackground(new java.awt.Color(14, 165, 233));
+        CadastroPaciente.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        CadastroPaciente.setForeground(new java.awt.Color(15, 23, 42));
         CadastroPaciente.setText("Cadastro Paciente");
         CadastroPaciente.setFocusable(false);
+        CadastroPaciente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                CadastroPacienteMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                CadastroPacienteMouseExited(evt);
+            }
+        });
         CadastroPaciente.addActionListener(this::CadastroPacienteActionPerformed);
 
+        CadastroMedico.setBackground(new java.awt.Color(14, 165, 233));
+        CadastroMedico.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        CadastroMedico.setForeground(new java.awt.Color(15, 23, 42));
         CadastroMedico.setText("Cadastro Médico");
         CadastroMedico.setFocusable(false);
+        CadastroMedico.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                CadastroMedicoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                CadastroMedicoMouseExited(evt);
+            }
+        });
         CadastroMedico.addActionListener(this::CadastroMedicoActionPerformed);
 
+        AgendarConsulta.setBackground(new java.awt.Color(14, 165, 233));
+        AgendarConsulta.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        AgendarConsulta.setForeground(new java.awt.Color(15, 23, 42));
         AgendarConsulta.setText("Agendar Consulta");
         AgendarConsulta.setFocusable(false);
+        AgendarConsulta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                AgendarConsultaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                AgendarConsultaMouseExited(evt);
+            }
+        });
         AgendarConsulta.addActionListener(this::AgendarConsultaActionPerformed);
 
+        AgendarCirurgia.setBackground(new java.awt.Color(14, 165, 233));
+        AgendarCirurgia.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        AgendarCirurgia.setForeground(new java.awt.Color(15, 23, 42));
         AgendarCirurgia.setText("Agendar Cirurgia");
         AgendarCirurgia.setFocusable(false);
+        AgendarCirurgia.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                AgendarCirurgiaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                AgendarCirurgiaMouseExited(evt);
+            }
+        });
         AgendarCirurgia.addActionListener(this::AgendarCirurgiaActionPerformed);
 
+        OperacaoTabela.setBackground(new java.awt.Color(14, 165, 233));
+        OperacaoTabela.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        OperacaoTabela.setForeground(new java.awt.Color(15, 23, 42));
         OperacaoTabela.setText("Operação/Tabela");
         OperacaoTabela.setFocusable(false);
+        OperacaoTabela.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                OperacaoTabelaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                OperacaoTabelaMouseExited(evt);
+            }
+        });
         OperacaoTabela.addActionListener(this::OperacaoTabelaActionPerformed);
 
+        Exit.setBackground(new java.awt.Color(14, 165, 233));
+        Exit.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        Exit.setForeground(new java.awt.Color(15, 23, 42));
         Exit.setText("Sair");
         Exit.setFocusable(false);
+        Exit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ExitMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                ExitMouseExited(evt);
+            }
+        });
         Exit.addActionListener(this::ExitActionPerformed);
 
-        Copyright.setText("©2026 Artur Ferreira Sales");
+        Copyright.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        Copyright.setForeground(new java.awt.Color(248, 250, 252));
+        Copyright.setText("©2026 Turzimm");
 
         javax.swing.GroupLayout BarraLateralLayout = new javax.swing.GroupLayout(BarraLateral);
         BarraLateral.setLayout(BarraLateralLayout);
@@ -121,17 +231,15 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(CadastroMedico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(AgendarConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(AgendarCirurgia, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(OperacaoTabela, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
-                            .addComponent(CadastroPaciente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(OperacaoTabela, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(CadastroPaciente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BarraLateralLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(Exit, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(BarraLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(Copyright)
+                            .addComponent(Exit, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(45, 45, 45))))
-            .addGroup(BarraLateralLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(Copyright)
-                .addGap(0, 0, Short.MAX_VALUE))
         );
         BarraLateralLayout.setVerticalGroup(
             BarraLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,11 +260,12 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(Exit)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Copyright)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(147, Short.MAX_VALUE))
         );
 
         getContentPane().add(BarraLateral, java.awt.BorderLayout.LINE_START);
 
+        contentPanel.setBackground(new java.awt.Color(248, 250, 252));
         contentPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         contentPanel.setLayout(new java.awt.CardLayout());
         getContentPane().add(contentPanel, java.awt.BorderLayout.CENTER);
@@ -204,6 +313,62 @@ public class MainFrame extends javax.swing.JFrame {
        System.exit(0);
     }//GEN-LAST:event_ExitActionPerformed
 
+    private void HomeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HomeMouseEntered
+        Home.setBackground(new java.awt.Color(2,132,199));
+    }//GEN-LAST:event_HomeMouseEntered
+
+    private void HomeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HomeMouseExited
+        Home.setBackground(new java.awt.Color(14,165,233));
+    }//GEN-LAST:event_HomeMouseExited
+
+    private void CadastroPacienteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CadastroPacienteMouseEntered
+        CadastroPaciente.setBackground(new java.awt.Color(2,132,199));
+    }//GEN-LAST:event_CadastroPacienteMouseEntered
+
+    private void CadastroPacienteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CadastroPacienteMouseExited
+        CadastroPaciente.setBackground(new java.awt.Color(14,165,233));
+    }//GEN-LAST:event_CadastroPacienteMouseExited
+
+    private void CadastroMedicoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CadastroMedicoMouseEntered
+        CadastroMedico.setBackground(new java.awt.Color(2,132,199));
+    }//GEN-LAST:event_CadastroMedicoMouseEntered
+
+    private void CadastroMedicoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CadastroMedicoMouseExited
+        CadastroMedico.setBackground(new java.awt.Color(14,165,233));
+    }//GEN-LAST:event_CadastroMedicoMouseExited
+
+    private void AgendarCirurgiaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgendarCirurgiaMouseEntered
+        AgendarCirurgia.setBackground(new java.awt.Color(2,132,199));
+    }//GEN-LAST:event_AgendarCirurgiaMouseEntered
+
+    private void AgendarConsultaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgendarConsultaMouseExited
+        AgendarConsulta.setBackground(new java.awt.Color(14,165,233));
+    }//GEN-LAST:event_AgendarConsultaMouseExited
+
+    private void AgendarConsultaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgendarConsultaMouseEntered
+       AgendarConsulta.setBackground(new java.awt.Color(2,132,199));
+    }//GEN-LAST:event_AgendarConsultaMouseEntered
+
+    private void AgendarCirurgiaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgendarCirurgiaMouseExited
+        AgendarCirurgia.setBackground(new java.awt.Color(14,165,233));
+    }//GEN-LAST:event_AgendarCirurgiaMouseExited
+
+    private void OperacaoTabelaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OperacaoTabelaMouseEntered
+        OperacaoTabela.setBackground(new java.awt.Color(2,132,199));
+    }//GEN-LAST:event_OperacaoTabelaMouseEntered
+
+    private void OperacaoTabelaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OperacaoTabelaMouseExited
+        OperacaoTabela.setBackground(new java.awt.Color(14,165,233));
+    }//GEN-LAST:event_OperacaoTabelaMouseExited
+
+    private void ExitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitMouseEntered
+        Exit.setBackground(new java.awt.Color(2,132,199));
+    }//GEN-LAST:event_ExitMouseEntered
+
+    private void ExitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitMouseExited
+        Exit.setBackground(new java.awt.Color(14,165,233));
+    }//GEN-LAST:event_ExitMouseExited
+
     public void atualizarEstadoMenuAgendamentos(){
         com.artur.clinica.services.ConsultaPostgresDAO dao = new com.artur.clinica.services.ConsultaPostgresDAO();
 
@@ -227,12 +392,13 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton AgendarConsulta;
     private javax.swing.JPanel BarraLateral;
     private javax.swing.JPanel BarraSuperior;
-    private javax.swing.JLabel BarraSuperiorText;
     private javax.swing.JButton CadastroMedico;
     private javax.swing.JButton CadastroPaciente;
     private javax.swing.JLabel Copyright;
+    private javax.swing.JLabel Data;
     private javax.swing.JButton Exit;
     private javax.swing.JButton Home;
+    private javax.swing.JLabel LogoBarraSuperior;
     private javax.swing.JButton OperacaoTabela;
     private javax.swing.JPanel contentPanel;
     // End of variables declaration//GEN-END:variables

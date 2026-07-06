@@ -37,10 +37,14 @@ public class CadastroPacientePanel extends javax.swing.JPanel {
         TipoSanguineoText = new javax.swing.JLabel();
         DataNasicmentoText = new javax.swing.JLabel();
         Salvar = new javax.swing.JButton();
+        CadastrarNovoPacienteText = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
 
+        setBackground(new java.awt.Color(248, 250, 252));
         setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 20, 1, 1));
         setToolTipText("");
 
+        PacienteNome.setBackground(new java.awt.Color(248, 250, 252));
         PacienteNome.setText("Digite o nome do paciente...");
         PacienteNome.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -52,20 +56,25 @@ public class CadastroPacientePanel extends javax.swing.JPanel {
         });
         PacienteNome.addActionListener(this::PacienteNomeActionPerformed);
 
+        CPFPaciente.setBackground(new java.awt.Color(248, 250, 252));
         try {
             CPFPaciente.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        CPFPaciente.setText("000.000.000-00");
+        CPFPaciente.setToolTipText("Exemplo: 000.000.000-00");
         CPFPaciente.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         CPFPaciente.addActionListener(this::CPFPacienteActionPerformed);
 
+        DataNascimento.setBackground(new java.awt.Color(248, 250, 252));
         DataNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
+        DataNascimento.setToolTipText("Exemplo: 25/12/2000");
         DataNascimento.addActionListener(this::DataNascimentoActionPerformed);
 
+        TipoSanguineo.setBackground(new java.awt.Color(248, 250, 252));
         TipoSanguineo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "O-", "O+", "A-", "A+", "B-", "B+", "AB-", "AB+", " " }));
 
+        Alergias.setBackground(new java.awt.Color(248, 250, 252));
         Alergias.setText("Digite as Alergias do Paciente se tiver");
         Alergias.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -83,13 +92,20 @@ public class CadastroPacientePanel extends javax.swing.JPanel {
 
         DataNasicmentoText.setText("Data de Nascimento");
 
+        Salvar.setBackground(new java.awt.Color(248, 250, 252));
         Salvar.setText("Salvar");
         Salvar.addActionListener(this::SalvarActionPerformed);
+
+        CadastrarNovoPacienteText.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        CadastrarNovoPacienteText.setText("Cadastrar Novo Paciente");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(CadastrarNovoPacienteText)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -104,19 +120,22 @@ public class CadastroPacientePanel extends javax.swing.JPanel {
                         .addComponent(PacienteNome, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(CPFPaciente, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(DataNascimento, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(6, 6, 6)
-                            .addComponent(CPFText))
-                        .addComponent(Alergias, javax.swing.GroupLayout.Alignment.LEADING)))
-                .addContainerGap(564, Short.MAX_VALUE))
+                        .addComponent(Alergias, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 1012, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CPFText))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addComponent(CadastrarNovoPacienteText)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(59, 59, 59)
                 .addComponent(PacienteNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(13, 13, 13)
                 .addComponent(CPFText)
-                .addGap(7, 7, 7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(CPFPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(DataNasicmentoText)
@@ -129,7 +148,7 @@ public class CadastroPacientePanel extends javax.swing.JPanel {
                     .addComponent(TipoSanguineoText)
                     .addComponent(TipoSanguineo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Salvar))
-                .addGap(0, 450, Short.MAX_VALUE))
+                .addContainerGap(343, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -213,11 +232,13 @@ public class CadastroPacientePanel extends javax.swing.JPanel {
     private javax.swing.JTextField Alergias;
     private javax.swing.JFormattedTextField CPFPaciente;
     private javax.swing.JLabel CPFText;
+    private javax.swing.JLabel CadastrarNovoPacienteText;
     private javax.swing.JFormattedTextField DataNascimento;
     private javax.swing.JLabel DataNasicmentoText;
     private javax.swing.JTextField PacienteNome;
     private javax.swing.JButton Salvar;
     private javax.swing.JComboBox<String> TipoSanguineo;
     private javax.swing.JLabel TipoSanguineoText;
+    private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }

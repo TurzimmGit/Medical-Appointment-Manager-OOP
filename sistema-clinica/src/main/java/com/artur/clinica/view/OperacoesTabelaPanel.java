@@ -6,6 +6,7 @@ public class OperacoesTabelaPanel extends javax.swing.JPanel {
     
     public OperacoesTabelaPanel() {
         initComponents();
+        
         NotFoundSearch.setVisible(false);
         TabelaRegistros.getTableHeader().setReorderingAllowed(false);
 
@@ -24,6 +25,9 @@ public class OperacoesTabelaPanel extends javax.swing.JPanel {
             Deletar.setEnabled(temSelecao);
             Editar.setEnabled(temSelecao);
         });
+
+        TabelaRegistros.setRowHeight(25); 
+
     }
 
     @SuppressWarnings("unchecked")
@@ -44,18 +48,25 @@ public class OperacoesTabelaPanel extends javax.swing.JPanel {
         NotFoundSearch = new javax.swing.JLabel();
 
         ConfirmarDelete.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        ConfirmarDelete.setTitle("Confirmar Cancelamento");
+        ConfirmarDelete.setBackground(new java.awt.Color(248, 250, 252));
         ConfirmarDelete.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         ConfirmarDelete.setLocation(new java.awt.Point(0, 0));
         ConfirmarDelete.setMinimumSize(new java.awt.Dimension(400, 200));
         ConfirmarDelete.setResizable(false);
 
         ConfirmarText.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        ConfirmarText.setText("Confirmar a Deleção da Consulta");
+        ConfirmarText.setForeground(new java.awt.Color(15, 23, 42));
+        ConfirmarText.setText("Confirmar o cancelamento da Consulta");
 
+        Confirmar.setBackground(new java.awt.Color(248, 250, 252));
+        Confirmar.setForeground(new java.awt.Color(15, 23, 42));
         Confirmar.setText("Confirmar");
         Confirmar.setFocusable(false);
         Confirmar.addActionListener(this::ConfirmarActionPerformed);
 
+        Cancelar.setBackground(new java.awt.Color(248, 250, 252));
+        Cancelar.setForeground(new java.awt.Color(15, 23, 42));
         Cancelar.setText("Cancelar");
         Cancelar.setFocusable(false);
         Cancelar.addActionListener(this::CancelarActionPerformed);
@@ -65,29 +76,29 @@ public class OperacoesTabelaPanel extends javax.swing.JPanel {
         ConfirmarDeleteLayout.setHorizontalGroup(
             ConfirmarDeleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ConfirmarDeleteLayout.createSequentialGroup()
-                .addGroup(ConfirmarDeleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(ConfirmarDeleteLayout.createSequentialGroup()
-                        .addGap(62, 62, 62)
-                        .addComponent(ConfirmarText))
-                    .addGroup(ConfirmarDeleteLayout.createSequentialGroup()
-                        .addGap(76, 76, 76)
-                        .addComponent(Confirmar)
-                        .addGap(73, 73, 73)
-                        .addComponent(Cancelar)))
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addGap(76, 76, 76)
+                .addComponent(Confirmar)
+                .addGap(73, 73, 73)
+                .addComponent(Cancelar)
+                .addContainerGap(69, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ConfirmarDeleteLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(ConfirmarText)
+                .addGap(29, 29, 29))
         );
         ConfirmarDeleteLayout.setVerticalGroup(
             ConfirmarDeleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ConfirmarDeleteLayout.createSequentialGroup()
-                .addGap(36, 36, 36)
+                .addGap(38, 38, 38)
                 .addComponent(ConfirmarText)
-                .addGap(53, 53, 53)
+                .addGap(51, 51, 51)
                 .addGroup(ConfirmarDeleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Confirmar)
                     .addComponent(Cancelar))
                 .addContainerGap(48, Short.MAX_VALUE))
         );
 
+        setBackground(new java.awt.Color(248, 250, 252));
         setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 20, 1, 1));
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -95,6 +106,7 @@ public class OperacoesTabelaPanel extends javax.swing.JPanel {
             }
         });
 
+        TabelaRegistros.setBackground(new java.awt.Color(248, 250, 252));
         TabelaRegistros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -112,10 +124,11 @@ public class OperacoesTabelaPanel extends javax.swing.JPanel {
             }
         });
         TabelaRegistros.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        TabelaRegistros.setSelectionBackground(new java.awt.Color(14, 165, 233));
         TabelaScroll.setViewportView(TabelaRegistros);
         TabelaRegistros.getAccessibleContext().setAccessibleDescription("");
 
-        RegistrosSalvosText.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        RegistrosSalvosText.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         RegistrosSalvosText.setText("Registros Salvos");
 
         Editar.setText("Editar");
@@ -132,6 +145,7 @@ public class OperacoesTabelaPanel extends javax.swing.JPanel {
         BuscarButton.setFocusable(false);
         BuscarButton.addActionListener(this::BuscarButtonActionPerformed);
 
+        NotFoundSearch.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         NotFoundSearch.setForeground(new java.awt.Color(255, 84, 84));
         NotFoundSearch.setText("Não foi possível Encontrar nenhum registro com os termos pesquisados!");
 
@@ -146,22 +160,21 @@ public class OperacoesTabelaPanel extends javax.swing.JPanel {
                         .addComponent(NotFoundSearch)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(TabelaScroll, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 208, Short.MAX_VALUE)
-                                .addComponent(RegistrosSalvosText)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 268, Short.MAX_VALUE)))
+                        .addComponent(TabelaScroll)
                         .addGap(43, 43, 43))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(BarraBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(BuscarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                         .addComponent(Deletar)
                         .addGap(18, 18, 18)
                         .addComponent(Editar)
                         .addGap(62, 62, 62))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(260, 260, 260)
+                .addComponent(RegistrosSalvosText)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -280,7 +293,7 @@ public class OperacoesTabelaPanel extends javax.swing.JPanel {
             if (this.cacheConsultas == null) {
                 com.artur.clinica.services.ConsultaPostgresDAO dao = new com.artur.clinica.services.ConsultaPostgresDAO();
                 this.cacheConsultas = dao.listarTodas();
-                System.out.println("💾 [DISCO] Dados carregados do PostgreSQL.");
+                //System.out.println("💾 [DISCO] Dados carregados do PostgreSQL.");
             }
             
             boolean encontrouAlgum = false;

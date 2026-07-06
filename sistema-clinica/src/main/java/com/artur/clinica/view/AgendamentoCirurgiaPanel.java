@@ -41,22 +41,29 @@ public class AgendamentoCirurgiaPanel extends javax.swing.JPanel {
         TipoAnestesiaText = new javax.swing.JLabel();
         Medico = new javax.swing.JComboBox<>();
         TipoCirurgia = new javax.swing.JTextField();
+        AgendarNovaCirurgiaText = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
 
+        setBackground(new java.awt.Color(248, 250, 252));
         setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 20, 1, 1));
+        setName("Medical Appointment Manager - Clinicativa v1.0"); // NOI18N
 
         MedicoText.setText("Médico");
 
+        CPFPaciente.setBackground(new java.awt.Color(248, 250, 252));
         try {
             CPFPaciente.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        CPFPaciente.setText("000.000.000-00");
+        CPFPaciente.setText("");
+        CPFPaciente.setToolTipText("Exemplo: 000.000.000-00");
         CPFPaciente.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         CPFPaciente.addActionListener(this::CPFPacienteActionPerformed);
 
         CPFText.setText("CPF");
 
+        PacienteNome.setBackground(new java.awt.Color(248, 250, 252));
         PacienteNome.setText("Digite o nome do paciente...");
         PacienteNome.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -68,26 +75,33 @@ public class AgendamentoCirurgiaPanel extends javax.swing.JPanel {
         });
         PacienteNome.addActionListener(this::PacienteNomeActionPerformed);
 
+        DataCirurgia.setBackground(new java.awt.Color(248, 250, 252));
         DataCirurgia.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
-        DataCirurgia.setText("09/09/2026");
+        DataCirurgia.setToolTipText("Exemplo: 09/09/2026");
         DataCirurgia.addActionListener(this::DataCirurgiaActionPerformed);
 
+        Salvar.setBackground(new java.awt.Color(248, 250, 252));
         Salvar.setText("Salvar");
         Salvar.setFocusable(false);
         Salvar.addActionListener(this::SalvarActionPerformed);
 
         DataCirurgiaText.setText("Data da Cirurgia ");
 
+        HorarioCirurgia.setBackground(new java.awt.Color(248, 250, 252));
         HorarioCirurgia.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT))));
-        HorarioCirurgia.setText("15:00");
+        HorarioCirurgia.setToolTipText("Exemplo: 15:00");
         HorarioCirurgia.addActionListener(this::HorarioCirurgiaActionPerformed);
 
         HorarioCirurgiaText1.setText("Horário da Cirurgia");
 
+        TipoAnestesia.setBackground(new java.awt.Color(248, 250, 252));
         TipoAnestesia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Geral", "Local" }));
 
         TipoAnestesiaText.setText("Tipo da Anestesia");
 
+        Medico.setBackground(new java.awt.Color(248, 250, 252));
+
+        TipoCirurgia.setBackground(new java.awt.Color(248, 250, 252));
         TipoCirurgia.setText("Digite o tipo da Cirurgia...");
         TipoCirurgia.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -98,6 +112,9 @@ public class AgendamentoCirurgiaPanel extends javax.swing.JPanel {
             }
         });
         TipoCirurgia.addActionListener(this::TipoCirurgiaActionPerformed);
+
+        AgendarNovaCirurgiaText.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        AgendarNovaCirurgiaText.setText("Agendar Nova Cirurgia");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -114,19 +131,14 @@ public class AgendamentoCirurgiaPanel extends javax.swing.JPanel {
                             .addComponent(CPFText)))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(TipoAnestesiaText)
-                                    .addGap(17, 17, 17)
-                                    .addComponent(TipoAnestesia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(0, 0, Short.MAX_VALUE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(28, 28, 28)
-                                    .addComponent(MedicoText)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(Medico, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(Salvar))
+                            .addComponent(TipoAnestesiaText)
+                            .addGap(17, 17, 17)
+                            .addComponent(TipoAnestesia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGap(28, 28, 28)
+                            .addComponent(MedicoText)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Medico, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(DataCirurgiaText)
@@ -134,14 +146,23 @@ public class AgendamentoCirurgiaPanel extends javax.swing.JPanel {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(HorarioCirurgiaText1)
-                                .addComponent(HorarioCirurgia, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(TipoCirurgia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(577, Short.MAX_VALUE))
+                                .addComponent(HorarioCirurgia, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(Salvar))
+                    .addComponent(AgendarNovaCirurgiaText)
+                    .addComponent(TipoCirurgia, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(710, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 1012, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(AgendarNovaCirurgiaText)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
                 .addComponent(PacienteNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(CPFText)
@@ -166,9 +187,10 @@ public class AgendamentoCirurgiaPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Medico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(MedicoText)
-                    .addComponent(Salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(450, Short.MAX_VALUE))
+                    .addComponent(MedicoText))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(327, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -279,6 +301,7 @@ public class AgendamentoCirurgiaPanel extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel AgendarNovaCirurgiaText;
     private javax.swing.JFormattedTextField CPFPaciente;
     private javax.swing.JLabel CPFText;
     private javax.swing.JFormattedTextField DataCirurgia;
@@ -292,5 +315,6 @@ public class AgendamentoCirurgiaPanel extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> TipoAnestesia;
     private javax.swing.JLabel TipoAnestesiaText;
     private javax.swing.JTextField TipoCirurgia;
+    private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,9 +1,9 @@
 <p align="center">
-  <img src="assets/programLogo.png" width="125px" height="125px" alt="Project Logo"/>
+  <img src="sistema-clinica/src/main/resources/assets/ClinicaProjetoLogo.png" width="400px" height="100px" alt="Project Logo"/>
 </p>
 
 <p align="center">
-  <h1 align="center">Medical Appointment Manager (Clinicavita)</h1>
+  <h1 align="center">Medical Appointment Manager (Clinicativa v1.0)</h1>
 </p>
 
 <p align="center">
@@ -45,7 +45,7 @@
 <a id="overview"></a>
 ## 🧭 Overview
 
-This project is an advanced enterprise-grade ecosystem built for managing patient records, medical appointments, and surgical schedules. It provides a flexible user experience supporting a **hybrid UI engine**: operations can be fully executed via an interactive native **Terminal CLI** loop or through a structured **Java Swing Graphical User Interface (GUI) - Coming soon(WIP)**.
+This project is an advanced enterprise-grade ecosystem built for managing patient records, medical appointments, and surgical schedules. It provides a flexible user experience supporting a **hybrid UI engine**: operations can be fully executed via an interactive native **Terminal CLI** loop or through a structured, responsive **Java Swing Graphical User Interface (GUI)** designed with production-ready UX principles.
 
 <a id="the-c-to-java-architectural-refactoring"></a>
 ### 🧬 The C to Java Architectural Refactoring
@@ -67,7 +67,7 @@ This project is an advanced enterprise-grade ecosystem built for managing patien
 
 |      | Category          | Description |
 | :--- | :---------------- | :----------- |
-| ☕ | **Hybrid Frontend** | Seamless system operation through an interactive text-based Terminal CLI or a Java Swing GUI desktop application. |
+| ☕ | **Hybrid Frontend** | Seamless system operation through an interactive text-based Terminal CLI or a custom-designed Java Swing GUI desktop application. |
 | 🐋 | **DevOps Container** | Local PostgreSQL 15 database isolation utilizing decoupled alpine Docker services and mapped storage volumes. |
 | 🛡️ | **Calendar Guard** | Precise temporal parser configured with `ResolverStyle.STRICT` to block chronologically impossible inputs (e.g., Leap year check for February 29th). |
 | ⏳ | **Overlapping Engine** | Sophisticated constraint manager checking overlapping schedules (30-minute block for general consults and full procedural windows for surgeries). |
@@ -81,23 +81,30 @@ This project is an advanced enterprise-grade ecosystem built for managing patien
 The project layout divides local docker definitions, source code domains, and automated validation files:
 
 ```text
-sistema-clinica/
-├── .github/modernize/       # Upgrade automated script actions
-├── docker-dev/              # Infrastructure orchestrations
-│   └── init-db/             # Seed folder containing the PostgreSQL table schema (init.sql)
-├── Modelagem De Dados/      # Structural entity diagrams and maps
-└── sistema-clinica/         # Main Maven project code framework
+.
+├── .github/
+│   └── modernize/java-upgrade/hooks/scripts/
+├── .vscode/
+├── docker-dev/
+│   └── init-db/                     # Schema definition script (init.sql)
+├── Modelagem De Dados/              # Unified database models and entity maps
+└── sistema-clinica/                 # Main Maven codebase root
     ├── src/
-    │   ├── main/java/com/artur/clinica/
-    │   │   ├── app/         # Main app loop, console processing utilities, and swing window views
-    │   │   ├── exception/   # Custom contextual runtime exceptions (ConflitoHorario, DadosInvalidos)
-    │   │   ├── model/       # Polymorphic structures (Consulta, ConsultaClinica, Cirurgia, Pessoa)
-    │   │   └── services/    # Persistent layer interactions (ConsultaPostgresDAO) and connection drivers
+    │   ├── main/
+    │   │   ├── java/com/artur/clinica/
+    │   │   │   ├── app/             # Application bootstrappers and Swing GUI Views
+    │   │   │   ├── Controller/      # Application orchestration layers (MVC Pattern)
+    │   │   │   ├── exception/       # Specialized business logic exceptions
+    │   │   │   ├── model/           # Relational domain business entities
+    │   │   │   └── services/        # JDBC Persistence Layer (DAO Modules)
+    │   │   └── resources/
+    │   │       └── assets/          # Embedded vector banners and app branding icons
     │   └── test/java/com/artur/clinica/
-    │       ├── ConflitoHorarioTest.java   # Conflict schedule matrix tests
-    │       ├── ConsultaIntegracaoTest.java  # Flow testing and 100-record scale strain tests
-    │       └── ConsultaValidacaoTest.java   # String metrics, formatting, and calendar validations
-    └── pom.xml              # XML dependencies manifest file
+    │       ├── ConflitoHorarioTest.java
+    │       ├── ConsultaIntegracaoTest.java
+    │       └── ConsultaValidacaoTest.java
+    ├── target/                      # Production compiler builds output
+    └── pom.xml                      # Project Object Model dependencies manifesto
 
 ```
 
@@ -176,20 +183,14 @@ mvn test
 
 ## 👤 Author
 
-* **Artur Ferreira Sales (Turzimm)** — *Information Systems Student at UFMT* * 📎 [GitHub Profile](https://github.com/TurzimmGit) | [LinkedIn](https://linkedin.com/in/artur-ferreira-sales-26a927370/)
+* **Artur Ferreira Sales (Turzimm)** — *Information Systems Student at UFMT*
+* 📎 [GitHub Profile](https://github.com/TurzimmGit) | [LinkedIn](https://linkedin.com/in/artur-ferreira-sales-26a927370/)
 * *If this project helped you understand OOP patterns, refactoring, or database integration, consider giving it a ⭐!*
 
 ---
-
 
 ## 📜 License
 
 This project is licensed under the **MIT License**.
 
 For full details, see the [LICENSE](https://github.com/TurzimmGit/Medical-Appointment-System/blob/main/LICENSE) file.
-
-<p align="left">
-<a href="#top">
-<img src="https://img.shields.io/badge/Back_to_Top_⭱-09baba?style=flat&logoColor=white" />
-</a>
-</p>

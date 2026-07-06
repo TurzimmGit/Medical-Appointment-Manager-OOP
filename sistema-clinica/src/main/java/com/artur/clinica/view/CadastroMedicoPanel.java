@@ -31,9 +31,13 @@ public class CadastroMedicoPanel extends javax.swing.JPanel {
         Salvar = new javax.swing.JButton();
         MedicoNome = new javax.swing.JTextField();
         CRM = new javax.swing.JFormattedTextField();
+        CadastarNovoMedicoText = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
 
+        setBackground(new java.awt.Color(248, 250, 252));
         setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 20, 1, 1));
 
+        Especialidades.setBackground(new java.awt.Color(248, 250, 252));
         Especialidades.setText("Digite a Especialidade do Médico...");
         Especialidades.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -47,9 +51,11 @@ public class CadastroMedicoPanel extends javax.swing.JPanel {
 
         CRMText.setText("CRM");
 
+        Salvar.setBackground(new java.awt.Color(248, 250, 252));
         Salvar.setText("Salvar");
         Salvar.addActionListener(this::SalvarActionPerformed);
 
+        MedicoNome.setBackground(new java.awt.Color(248, 250, 252));
         MedicoNome.setText("Digite o nome do Médico...");
         MedicoNome.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -61,14 +67,19 @@ public class CadastroMedicoPanel extends javax.swing.JPanel {
         });
         MedicoNome.addActionListener(this::MedicoNomeActionPerformed);
 
+        CRM.setBackground(new java.awt.Color(248, 250, 252));
         try {
             CRM.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("########-#/UU")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        CRM.setText("00000000-0/MT");
+        CRM.setText("");
+        CRM.setToolTipText("Exemplo: 00000000-0/MT");
         CRM.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         CRM.addActionListener(this::CRMActionPerformed);
+
+        CadastarNovoMedicoText.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        CadastarNovoMedicoText.setText("Cadastrar Novo Médico");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -85,11 +96,21 @@ public class CadastroMedicoPanel extends javax.swing.JPanel {
                             .addComponent(CRMText))
                         .addComponent(Especialidades, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE))
                     .addComponent(Salvar))
-                .addContainerGap(574, Short.MAX_VALUE))
+                .addContainerGap(699, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(CadastarNovoMedicoText)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 1012, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 12, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(CadastarNovoMedicoText)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(61, 61, 61)
                 .addComponent(MedicoNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(CRMText)
@@ -99,7 +120,7 @@ public class CadastroMedicoPanel extends javax.swing.JPanel {
                 .addComponent(Especialidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Salvar)
-                .addGap(0, 512, Short.MAX_VALUE))
+                .addContainerGap(397, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -172,8 +193,10 @@ public class CadastroMedicoPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFormattedTextField CRM;
     private javax.swing.JLabel CRMText;
+    private javax.swing.JLabel CadastarNovoMedicoText;
     private javax.swing.JTextField Especialidades;
     private javax.swing.JTextField MedicoNome;
     private javax.swing.JButton Salvar;
+    private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }
