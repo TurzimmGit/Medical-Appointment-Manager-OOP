@@ -129,6 +129,7 @@ public class OperacoesTabelaPanel extends javax.swing.JPanel {
         TabelaRegistros.getAccessibleContext().setAccessibleDescription("");
 
         RegistrosSalvosText.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        RegistrosSalvosText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         RegistrosSalvosText.setText("Registros Salvos");
 
         Editar.setText("Editar");
@@ -171,19 +172,19 @@ public class OperacoesTabelaPanel extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(Editar)
                         .addGap(62, 62, 62))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(260, 260, 260)
-                .addComponent(RegistrosSalvosText)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(246, 246, 246)
+                .addComponent(RegistrosSalvosText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(242, 242, 242))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(82, 82, 82)
+                .addGap(49, 49, 49)
                 .addComponent(RegistrosSalvosText)
-                .addGap(18, 18, 18)
+                .addGap(39, 39, 39)
                 .addComponent(TabelaScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Editar)
                     .addComponent(Deletar)

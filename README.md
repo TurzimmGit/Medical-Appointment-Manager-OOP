@@ -1,5 +1,9 @@
 <p align="center">
-  <img src="sistema-clinica/src/main/resources/assets/ClinicaProjetoLogo.png" width="400px" height="100px" alt="Project Logo"/>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="sistema-clinica/src/main/resources/assets/programLogoDark.png">
+    <source media="(prefers-color-scheme: light)" srcset="sistema-clinica/src/main/resources/assets/programLogoLight.png">
+    <img src="sistema-clinica/src/main/resources/assets/programLogoLight.png" width="400px" height="100px" alt="Project Logo"/>
+  </picture>
 </p>
 
 <p align="center">
@@ -7,9 +11,9 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/License-MIT-09baba?style=flat-square&logo=opensourceinitiative&logoColor=white"/>
-  <img src="https://img.shields.io/badge/For-UFMT_Academic_Training-09baba?style=flat-square&logo=gitbook&logoColor=white"/>
-  <img src="https://img.shields.io/badge/%F0%9F%9A%80_Tests-100%25_Passing-09baba?style=flat-square"/>
+  <img src="https://img.shields.io/badge/License-MIT-0284C7?style=flat-square&logo=opensourceinitiative&logoColor=white"/>
+  <img src="https://img.shields.io/badge/For-UFMT_Academic_Training-0284C7?style=flat-square&logo=gitbook&logoColor=white"/>
+  <img src="https://img.shields.io/badge/%F0%9F%9A%80_Tests-100%25_Passing-0284C7?style=flat-square"/>
 </p>
 
 <p align="center">
@@ -20,10 +24,10 @@
 
 <p align="center"><em>Built with:</em></p>
 <p align="center">
-  <img src="https://img.shields.io/badge/Language-Java_17-09baba?style=flat-square&logo=openjdk&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Database-PostgreSQL_15-09baba?style=flat-square&logo=postgresql&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Environment-Docker_&_Compose-09baba?style=flat-square&logo=docker&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Framework-Maven_&_JUnit5-09baba?style=flat-square&logo=apachemaven&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Language-Java_17-0284C7?style=flat-square&logo=openjdk&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Database-PostgreSQL_15-0284C7?style=flat-square&logo=postgresql&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Environment-Docker_&_Compose-0284C7?style=flat-square&logo=docker&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Framework-Maven_&_JUnit5-0284C7?style=flat-square&logo=apachemaven&logoColor=white"/>
 </p>
 
 ---
@@ -200,6 +204,6 @@ For full details, see the [LICENSE](https://github.com/TurzimmGit/Medical-Appoin
 
 <p align="left">
 <a href="#top">
-<img src="https://img.shields.io/badge/Back_to_Top_⭱-09baba?style=flat&logoColor=white" />
+<img src="https://img.shields.io/badge/Back_to_Top_⭱-0284C7?style=flat&logoColor=white" />
 </a>
 </p>
