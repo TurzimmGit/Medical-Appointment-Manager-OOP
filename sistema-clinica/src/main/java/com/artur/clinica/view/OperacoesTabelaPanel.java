@@ -198,45 +198,54 @@ public class OperacoesTabelaPanel extends javax.swing.JPanel {
 
     private void EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarActionPerformed
         int selected = TabelaRegistros.getSelectedRow();
-    
-        if (selected >= 0) {
+        int selectedcount = TabelaRegistros.getSelectedRowCount();
+        if (selectedcount >= 0) {
+            if(selectedcount == 1){
+                String ticket = TabelaRegistros.getValueAt(selected, 0).toString();
+                String paciente = TabelaRegistros.getValueAt(selected, 1).toString();
 
-            String ticket = TabelaRegistros.getValueAt(selected, 0).toString();
-            String paciente = TabelaRegistros.getValueAt(selected, 1).toString();
+                String tipo = ticket.startsWith("CC") ? "Clinica" : "Cirurgia";
 
-            String tipo = ticket.startsWith("CC") ? "Clinica" : "Cirurgia";
+                java.awt.Frame parentFrame = (java.awt.Frame) javax.swing.SwingUtilities.getWindowAncestor(this);
 
-            java.awt.Frame parentFrame = (java.awt.Frame) javax.swing.SwingUtilities.getWindowAncestor(this);
+                EditarRegistroDialog dialog = new EditarRegistroDialog(parentFrame, true, tipo, ticket, paciente);
 
-            EditarRegistroDialog dialog = new EditarRegistroDialog(parentFrame, true, tipo, ticket, paciente);
+                dialog.setLocationRelativeTo(null);
+                dialog.setVisible(true);
 
-            dialog.setLocationRelativeTo(null);
-            dialog.setVisible(true);
-
-            atualizarTabela();
-
+                atualizarTabela();
+            }else{
+                 javax.swing.JOptionPane.showMessageDialog(this, "Por favor, selecione APENAS 1 consulta na tabela para editar.", "Aviso", javax.swing.JOptionPane.WARNING_MESSAGE);
             }
+
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, selecione uma consulta na tabela para editar.", "Aviso", javax.swing.JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_EditarActionPerformed
 
     private void DeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeletarActionPerformed
 
         int selected = TabelaRegistros.getSelectedRow();
+        int selectedcount = TabelaRegistros.getSelectedRowCount();
     
-        if (selected >= 0) {
-     
-            Object valorCelula = TabelaRegistros.getValueAt(selected, 0);
- 
-            if (valorCelula != null) {
-                this.ticketSelecionado = valorCelula.toString(); 
+        if (selectedcount >= 0) {
+            if(selectedcount == 1){
+                Object valorCelula = TabelaRegistros.getValueAt(selected, 0);
+    
+                if (valorCelula != null) {
+                    this.ticketSelecionado = valorCelula.toString(); 
 
 
-                ConfirmarDelete.setLocationRelativeTo(null);
-                ConfirmarDelete.setVisible(true);
+                    ConfirmarDelete.setLocationRelativeTo(null);
+                    ConfirmarDelete.setVisible(true);
+            }
+            }else{
+                 javax.swing.JOptionPane.showMessageDialog(this, "Por favor, selecione APENAS 1 consulta na tabela para deletar.", "Aviso", javax.swing.JOptionPane.WARNING_MESSAGE);
             }
         } else {
             javax.swing.JOptionPane.showMessageDialog(this, "Por favor, selecione uma consulta na tabela para deletar.", "Aviso", javax.swing.JOptionPane.WARNING_MESSAGE);
         }
-    }//GEN-LAST:event_DeletarActionPerformed
+    }
 
     private void BarraBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BarraBuscaActionPerformed
 
