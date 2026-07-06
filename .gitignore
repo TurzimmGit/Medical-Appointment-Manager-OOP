@@ -1,0 +1,15 @@
+# Bloquear pastas de build do Maven
+**/target/
+target/
+
+# Bloquear configurações de IDEs
+.vscode/
+**/.vscode/
+.nbproject/
+**/nbproject/
+nbactions.xml
+**/nbactions.xml
+
+# Bloquear arquivos temporários do sistema
+Thumbs.db
+.DS_Store
