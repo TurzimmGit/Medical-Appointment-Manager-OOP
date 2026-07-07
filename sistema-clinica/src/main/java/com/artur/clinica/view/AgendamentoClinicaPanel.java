@@ -204,7 +204,7 @@ public class AgendamentoClinicaPanel extends javax.swing.JPanel {
     );
     
     if (agendadoComSucesso) {
-        limparCampos(); 
+        limparCampos();
     }
     }//GEN-LAST:event_SalvarActionPerformed
 
@@ -251,6 +251,14 @@ public class AgendamentoClinicaPanel extends javax.swing.JPanel {
         PacienteNome.setText("Digite o nome do paciente...");
         PacienteNome.setForeground(java.awt.Color.GRAY);
         
+    }
+    
+    @Override
+    public void setVisible(boolean aFlag) {
+        super.setVisible(aFlag);
+        if (aFlag) {
+            carregarMedicosNoCombo();
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

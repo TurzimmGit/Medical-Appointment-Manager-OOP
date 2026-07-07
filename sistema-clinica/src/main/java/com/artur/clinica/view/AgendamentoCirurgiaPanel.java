@@ -283,6 +283,14 @@ public class AgendamentoCirurgiaPanel extends javax.swing.JPanel {
             Medico.addItem(med);
         }
     }
+    
+    @Override
+    public void setVisible(boolean aFlag) {
+        super.setVisible(aFlag);
+        if (aFlag) {
+            carregarMedicosNoCombo();
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel AgendarNovaCirurgiaText;

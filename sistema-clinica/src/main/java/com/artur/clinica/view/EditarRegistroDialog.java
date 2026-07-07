@@ -42,13 +42,14 @@ public class EditarRegistroDialog extends javax.swing.JDialog {
         CARD_CIRURGIA = new javax.swing.JPanel();
         Salvar1 = new javax.swing.JButton();
         DataCirurgiaText = new javax.swing.JLabel();
-        HorarioCirurgia = new javax.swing.JFormattedTextField();
+        DataCirurgia = new javax.swing.JFormattedTextField();
         HorarioCirurgiaText1 = new javax.swing.JLabel();
         TipoAnestesia = new javax.swing.JComboBox<>();
         TipoAnestesiaText = new javax.swing.JLabel();
         MedicoText1 = new javax.swing.JLabel();
         Medico1 = new javax.swing.JComboBox<>();
         TipoCirurgia = new javax.swing.JTextField();
+        HorarioCirurgia1 = new javax.swing.JFormattedTextField();
         CARD_CLINICA = new javax.swing.JPanel();
         DataConsulta = new javax.swing.JFormattedTextField();
         Salvar = new javax.swing.JButton();
@@ -89,10 +90,10 @@ public class EditarRegistroDialog extends javax.swing.JDialog {
 
         DataCirurgiaText.setText("Data da Cirurgia ");
 
-        HorarioCirurgia.setBackground(new java.awt.Color(248, 250, 252));
-        HorarioCirurgia.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT))));
-        HorarioCirurgia.setToolTipText("Exemplo: 15:00");
-        HorarioCirurgia.addActionListener(this::HorarioCirurgiaActionPerformed);
+        DataCirurgia.setBackground(new java.awt.Color(248, 250, 252));
+        DataCirurgia.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
+        DataCirurgia.setToolTipText("Exemplo: 10/10/2026");
+        DataCirurgia.addActionListener(this::DataCirurgiaActionPerformed);
 
         HorarioCirurgiaText1.setText("Horário da Cirurgia");
 
@@ -119,6 +120,11 @@ public class EditarRegistroDialog extends javax.swing.JDialog {
         });
         TipoCirurgia.addActionListener(this::TipoCirurgiaActionPerformed);
 
+        HorarioCirurgia1.setBackground(new java.awt.Color(248, 250, 252));
+        HorarioCirurgia1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT))));
+        HorarioCirurgia1.setToolTipText("Exemplo: 15:00");
+        HorarioCirurgia1.addActionListener(this::HorarioCirurgia1ActionPerformed);
+
         javax.swing.GroupLayout CARD_CIRURGIALayout = new javax.swing.GroupLayout(CARD_CIRURGIA);
         CARD_CIRURGIA.setLayout(CARD_CIRURGIALayout);
         CARD_CIRURGIALayout.setHorizontalGroup(
@@ -144,11 +150,16 @@ public class EditarRegistroDialog extends javax.swing.JDialog {
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, CARD_CIRURGIALayout.createSequentialGroup()
                             .addComponent(DataCirurgiaText)
                             .addGap(69, 69, 69)
-                            .addGroup(CARD_CIRURGIALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(HorarioCirurgiaText1)
-                                .addComponent(HorarioCirurgia, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(TipoCirurgia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(HorarioCirurgiaText1)
+                            .addGap(50, 50, 50)))
+                    .addComponent(TipoCirurgia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(DataCirurgia, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(61, Short.MAX_VALUE))
+            .addGroup(CARD_CIRURGIALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CARD_CIRURGIALayout.createSequentialGroup()
+                    .addContainerGap(173, Short.MAX_VALUE)
+                    .addComponent(HorarioCirurgia1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(51, 51, 51)))
         );
         CARD_CIRURGIALayout.setVerticalGroup(
             CARD_CIRURGIALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,12 +168,12 @@ public class EditarRegistroDialog extends javax.swing.JDialog {
                 .addGroup(CARD_CIRURGIALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(CARD_CIRURGIALayout.createSequentialGroup()
                         .addComponent(HorarioCirurgiaText1)
-                        .addGap(4, 4, 4)
-                        .addComponent(HorarioCirurgia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(44, 44, 44))
                     .addGroup(CARD_CIRURGIALayout.createSequentialGroup()
                         .addComponent(DataCirurgiaText)
-                        .addGap(26, 26, 26)))
-                .addGap(18, 18, 18)
+                        .addGap(4, 4, 4)
+                        .addComponent(DataCirurgia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
                 .addComponent(TipoCirurgia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(CARD_CIRURGIALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -174,6 +185,11 @@ public class EditarRegistroDialog extends javax.swing.JDialog {
                     .addComponent(MedicoText1)
                     .addComponent(Salvar1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(30, Short.MAX_VALUE))
+            .addGroup(CARD_CIRURGIALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(CARD_CIRURGIALayout.createSequentialGroup()
+                    .addGap(64, 64, 64)
+                    .addComponent(HorarioCirurgia1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(141, Short.MAX_VALUE)))
         );
 
         EditarDialogPanel.add(CARD_CIRURGIA, "card3");
@@ -341,9 +357,9 @@ public class EditarRegistroDialog extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_Salvar1ActionPerformed
 
-    private void HorarioCirurgiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HorarioCirurgiaActionPerformed
+    private void DataCirurgiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DataCirurgiaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_HorarioCirurgiaActionPerformed
+    }//GEN-LAST:event_DataCirurgiaActionPerformed
 
     private void TipoCirurgiaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TipoCirurgiaFocusGained
         if (TipoCirurgia.getText().equals("Digite o tipo da Cirurgia...")) {
@@ -378,6 +394,10 @@ public class EditarRegistroDialog extends javax.swing.JDialog {
     private void DataConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DataConsultaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_DataConsultaActionPerformed
+
+    private void HorarioCirurgia1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HorarioCirurgia1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_HorarioCirurgia1ActionPerformed
     
     private void limparCampos(){
         HorarioConsulta.setValue(null);
@@ -417,11 +437,12 @@ public class EditarRegistroDialog extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel CARD_CIRURGIA;
     private javax.swing.JPanel CARD_CLINICA;
+    private javax.swing.JFormattedTextField DataCirurgia;
     private javax.swing.JLabel DataCirurgiaText;
     private javax.swing.JFormattedTextField DataConsulta;
     private javax.swing.JLabel DataConsultaText;
     private javax.swing.JPanel EditarDialogPanel;
-    private javax.swing.JFormattedTextField HorarioCirurgia;
+    private javax.swing.JFormattedTextField HorarioCirurgia1;
     private javax.swing.JLabel HorarioCirurgiaText1;
     private javax.swing.JFormattedTextField HorarioConsulta;
     private javax.swing.JLabel HorarioConsultaText1;
