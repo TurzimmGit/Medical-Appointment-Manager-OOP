@@ -138,8 +138,8 @@ The application implements Table Inheritance and normalization architectures via
 **1. Clone the repository and navigate to the project root:**
 
 ```bash
-git clone [https://github.com/TurzimmGit/medical-appointment-manager.git](https://github.com/TurzimmGit/medical-appointment-manager.git)
-cd medical-appointment-manager
+git clone https://github.com/TurzimmGit/Medical-Appointment-Manager-OOP.git
+cd Medical-Appointment-Manager-OOP
 
 ```
 
