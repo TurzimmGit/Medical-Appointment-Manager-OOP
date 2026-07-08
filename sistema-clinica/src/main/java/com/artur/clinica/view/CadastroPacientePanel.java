@@ -53,7 +53,8 @@ public class CadastroPacientePanel extends javax.swing.JPanel {
         DataNascimento.addActionListener(this::DataNascimentoActionPerformed);
 
         TipoSanguineo.setBackground(new java.awt.Color(248, 250, 252));
-        TipoSanguineo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "O-", "O+", "A-", "A+", "B-", "B+", "AB-", "AB+", " " }));
+        TipoSanguineo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "O-", "O+", "A-", "A+", "B-", "B+", "AB-", "AB+" }));
+        TipoSanguineo.addActionListener(this::TipoSanguineoActionPerformed);
 
         Alergias.setBackground(new java.awt.Color(248, 250, 252));
         Alergias.setText("Digite as Alergias do Paciente se tiver");
@@ -194,6 +195,10 @@ public class CadastroPacientePanel extends javax.swing.JPanel {
 
         
     }//GEN-LAST:event_SalvarActionPerformed
+
+    private void TipoSanguineoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TipoSanguineoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TipoSanguineoActionPerformed
     
     private void limparCampos(){
         PacienteNome.setText("");

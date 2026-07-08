@@ -23,6 +23,7 @@ public class EditarRegistroDialog extends javax.swing.JDialog {
         
         CardLayout cl = (CardLayout) EditarDialogPanel.getLayout();
         if (tipo.equals("Cirurgia")) {
+            carregarMedicosNoCombo();
             cl.show(EditarDialogPanel, "CARD_CIRURGIA");
         } else {
             cl.show(EditarDialogPanel, "CARD_CLINICA");
@@ -105,7 +106,6 @@ public class EditarRegistroDialog extends javax.swing.JDialog {
         MedicoText1.setText("Médico");
 
         Medico1.setBackground(new java.awt.Color(248, 250, 252));
-        Medico1.setEditable(true);
         Medico1.addActionListener(this::Medico1ActionPerformed);
 
         TipoCirurgia.setBackground(new java.awt.Color(248, 250, 252));
@@ -152,30 +152,31 @@ public class EditarRegistroDialog extends javax.swing.JDialog {
                             .addGap(69, 69, 69)
                             .addComponent(HorarioCirurgiaText1)
                             .addGap(50, 50, 50)))
-                    .addComponent(TipoCirurgia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(DataCirurgia, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(CARD_CIRURGIALayout.createSequentialGroup()
+                        .addGroup(CARD_CIRURGIALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(TipoCirurgia, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(DataCirurgia, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(HorarioCirurgia1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(61, Short.MAX_VALUE))
-            .addGroup(CARD_CIRURGIALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CARD_CIRURGIALayout.createSequentialGroup()
-                    .addContainerGap(173, Short.MAX_VALUE)
-                    .addComponent(HorarioCirurgia1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(51, 51, 51)))
         );
         CARD_CIRURGIALayout.setVerticalGroup(
             CARD_CIRURGIALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CARD_CIRURGIALayout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addGroup(CARD_CIRURGIALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(CARD_CIRURGIALayout.createSequentialGroup()
+                .addGroup(CARD_CIRURGIALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CARD_CIRURGIALayout.createSequentialGroup()
                         .addComponent(HorarioCirurgiaText1)
-                        .addGap(44, 44, 44))
-                    .addGroup(CARD_CIRURGIALayout.createSequentialGroup()
+                        .addGap(84, 84, 84))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CARD_CIRURGIALayout.createSequentialGroup()
                         .addComponent(DataCirurgiaText)
                         .addGap(4, 4, 4)
-                        .addComponent(DataCirurgia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(CARD_CIRURGIALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(DataCirurgia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(HorarioCirurgia1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(TipoCirurgia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)))
-                .addComponent(TipoCirurgia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addGroup(CARD_CIRURGIALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TipoAnestesia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(TipoAnestesiaText))
@@ -185,11 +186,6 @@ public class EditarRegistroDialog extends javax.swing.JDialog {
                     .addComponent(MedicoText1)
                     .addComponent(Salvar1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(30, Short.MAX_VALUE))
-            .addGroup(CARD_CIRURGIALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(CARD_CIRURGIALayout.createSequentialGroup()
-                    .addGap(64, 64, 64)
-                    .addComponent(HorarioCirurgia1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(141, Short.MAX_VALUE)))
         );
 
         EditarDialogPanel.add(CARD_CIRURGIA, "card3");
@@ -254,21 +250,19 @@ public class EditarRegistroDialog extends javax.swing.JDialog {
                         .addGroup(CARD_CLINICALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(HorarioConsultaText1)
                             .addComponent(HorarioConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
         CARD_CLINICALayout.setVerticalGroup(
             CARD_CLINICALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CARD_CLINICALayout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(CARD_CLINICALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(CARD_CLINICALayout.createSequentialGroup()
-                        .addComponent(HorarioConsultaText1)
-                        .addGap(4, 4, 4)
-                        .addComponent(HorarioConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(CARD_CLINICALayout.createSequentialGroup()
-                        .addComponent(DataConsultaText)
-                        .addGap(4, 4, 4)
-                        .addComponent(DataConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(29, 29, 29)
+                .addGroup(CARD_CLINICALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(DataConsultaText)
+                    .addComponent(HorarioConsultaText1))
+                .addGap(4, 4, 4)
+                .addGroup(CARD_CLINICALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(HorarioConsulta)
+                    .addComponent(DataConsulta))
                 .addGap(18, 18, 18)
                 .addGroup(CARD_CLINICALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TipoConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -278,7 +272,7 @@ public class EditarRegistroDialog extends javax.swing.JDialog {
                     .addComponent(Medico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(MedicoText)
                     .addComponent(Salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
 
         EditarDialogPanel.add(CARD_CLINICA, "CARD_CLINICA");
@@ -344,9 +338,9 @@ public class EditarRegistroDialog extends javax.swing.JDialog {
 
     private void Salvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Salvar1ActionPerformed
         String ticketStr = Ticket.getText();
-        String dataStr = DataConsulta.getText();
-        String horarioStr = HorarioConsulta.getText();
-        Object medicoObj = Medico.getSelectedItem();
+        String dataStr = DataCirurgia.getText(); 
+        String horarioStr = HorarioCirurgia1.getText();
+        Object medicoObj = Medico1.getSelectedItem();
         String tipoAnestesia = TipoAnestesia.getSelectedItem().toString();
         String tipoCir = TipoCirurgia.getText();
 
@@ -363,8 +357,8 @@ public class EditarRegistroDialog extends javax.swing.JDialog {
 
     private void TipoCirurgiaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TipoCirurgiaFocusGained
         if (TipoCirurgia.getText().equals("Digite o tipo da Cirurgia...")) {
-            TipoCirurgia.setText("Digite o tipo da Cirurgia...");
-            TipoCirurgia.setForeground(java.awt.Color.GRAY);
+            TipoCirurgia.setText("");
+            TipoCirurgia.setForeground(java.awt.Color.BLACK);
         }
     }//GEN-LAST:event_TipoCirurgiaFocusGained
 
@@ -398,18 +392,12 @@ public class EditarRegistroDialog extends javax.swing.JDialog {
     private void HorarioCirurgia1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HorarioCirurgia1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_HorarioCirurgia1ActionPerformed
-    
-    private void limparCampos(){
-        HorarioConsulta.setValue(null);
-        DataConsulta.setValue(null);
-        Medico.setSelectedIndex(0);
-        TipoConsulta.setSelectedIndex(0);
-    }
 
     public void carregarMedicosNoCombo(){
         Medico.removeAllItems();
-
-        Medico.setRenderer(new javax.swing.DefaultListCellRenderer() {
+        Medico1.removeAllItems();
+        
+        javax.swing.DefaultListCellRenderer medicoRenderer = new javax.swing.DefaultListCellRenderer() {
         @Override
         public java.awt.Component getListCellRendererComponent(
                 javax.swing.JList<?> list, Object value, int index, 
@@ -424,13 +412,17 @@ public class EditarRegistroDialog extends javax.swing.JDialog {
             
             return this;
             }
-        });
+        };
 
         com.artur.clinica.services.ConsultaPostgresDAO dao = new com.artur.clinica.services.ConsultaPostgresDAO();
         java.util.List<com.artur.clinica.model.Medico> lista = dao.listarMedicos();
-
+        
+        Medico.setRenderer(medicoRenderer);
+        Medico1.setRenderer(medicoRenderer);
+        
         for(com.artur.clinica.model.Medico med : lista){
             Medico.addItem(med);
+            Medico1.addItem(med);
         }
     } 
     

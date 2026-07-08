@@ -35,13 +35,10 @@ public class MainFrame extends javax.swing.JFrame {
         
         atualizarEstadoMenuAgendamentos();
         
-        javax.swing.Timer timer = new javax.swing.Timer(1000, e -> {
-            java.time.LocalDateTime agora = java.time.LocalDateTime.now();
-            java.time.format.DateTimeFormatter formatador = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy    HH:mm");
-            Data.setText(agora.format(formatador));
-        });
-
-        timer.start();
+        java.time.LocalDateTime agora = java.time.LocalDateTime.now();
+        java.time.format.DateTimeFormatter formatador = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy    HH:mm");
+        Data.setText(agora.format(formatador));
+      
         java.awt.CardLayout cl = (java.awt.CardLayout) contentPanel.getLayout();
         cl.show(contentPanel, "HOME");
     }

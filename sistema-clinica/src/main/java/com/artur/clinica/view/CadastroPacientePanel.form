@@ -135,7 +135,7 @@
           <Color blue="fc" green="fa" red="f8" type="rgb"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="9">
+          <StringArray count="8">
             <StringItem index="0" value="O-"/>
             <StringItem index="1" value="O+"/>
             <StringItem index="2" value="A-"/>
@@ -144,10 +144,12 @@
             <StringItem index="5" value="B+"/>
             <StringItem index="6" value="AB-"/>
             <StringItem index="7" value="AB+"/>
-            <StringItem index="8" value=" "/>
           </StringArray>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TipoSanguineoActionPerformed"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>

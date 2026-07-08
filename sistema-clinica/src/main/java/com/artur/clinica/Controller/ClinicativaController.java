@@ -23,7 +23,7 @@ public class ClinicativaController {
     public static boolean processarCadastroPaciente(Component telaPai, String nome, String cpf, String dataNasc, String tipoSanguineo, String alergias){
         
         try{
-            if(nome == null || nome.trim().isEmpty()){
+            if(!textoEvalido(nome)){
                 throw new DadosInvalidosException("O campo 'Nome do Paciente' é obrigatório!");
             }
 
@@ -73,16 +73,16 @@ public class ClinicativaController {
 
     public static boolean processarCadastroMedico(Component telaPai, String nome, String crm, String especialidades){
         try{
-            if(nome == null || nome.trim().isEmpty()){
-                throw new DadosInvalidosException("O campo 'Nome do Paciente' é obrigatório!");
+            if(!textoEvalido(nome)){
+                throw new DadosInvalidosException("O campo 'Nome do Médico' é obrigatório!");
             }
 
             if(crm == null || crm.trim().isEmpty()){
                 throw new DadosInvalidosException("O campo 'CRM' é obrigatório!");
             }
 
-            if(especialidades == null || especialidades.trim().isEmpty()){
-                throw  new DadosInvalidosException("O campo 'especialidades' é obrigatório!");
+            if(!textoEvalido(especialidades)){
+                throw  new DadosInvalidosException("O campo 'especialidade' é obrigatório!");
             }
 
             Medico novoMedico = new Medico(nome, crm, especialidades);
@@ -233,5 +233,15 @@ public class ClinicativaController {
             JOptionPane.showMessageDialog(telaPai, e.getMessage(), "Erro na Alteração", JOptionPane.ERROR_MESSAGE);
             return false;
         }
+    }
+
+    private static boolean textoEvalido(String texto){
+        if(texto == null){
+            return false;
+        }
+
+        String textoLimpo = texto.trim();
+
+        return !textoLimpo.isEmpty() && !textoLimpo.equalsIgnoreCase("Digite o nome do Médico...") && !textoLimpo.equalsIgnoreCase("Digite o nome do paciente...") && !textoLimpo.equalsIgnoreCase("Digite a Especialidade do Médico...");
     }
 }
